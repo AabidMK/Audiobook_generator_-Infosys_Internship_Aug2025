@@ -91,7 +91,7 @@ def save_as_markdown(content, output_path):
         print(f"[Error saving Markdown: {e}]")
 
 if __name__ == "__main__":
-    file_path = r"C:\Users\kjish\pdf_extraction_test\sample2.pdf"
+    file_path = r"C:\Users\kjish\pdf_extraction_test\sample12.pdf"
     file_ext = os.path.splitext(file_path)[1].lower()
 
     if not os.path.exists(file_path):
