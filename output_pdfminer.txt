@@ -1,0 +1,108 @@
+Representation of Knowledge: Knowledge representation issues, predicate logic - logic 
+programming, semantic nets - frames and inheritance, constraint propagation, representing 
+knowledge using rules, rules-based deduction systems.   
+
+Reasoning under uncertainty: Review of probability, Bayes’ probabilistic inferences, and 
+Dempster-Shafer theory  
+
+1. Representation of Knowledge  
+
+Human beings are good at understanding, reasoning and interpreting knowledge. And using 
+this knowledge, they are able to perform various actions in the real world. But how do 
+machines perform the same?  
+
+What is Knowledge Representation?   
+
+Knowledge Representation (KR) describes the representation of knowledge. Basically, it is a 
+study of how the beliefs, intentions, and judgments of an intelligent agent can be expressed 
+suitably for automated reasoning. One of the primary purposes of Knowledge 
+Representation includes modelling intelligent behaviour for an agent.   
+
+Knowledge Representation and Reasoning (KRR) represents information from the real world 
+for a computer to understand and then utilize this knowledge to solve complex real-life 
+problems like communicating with human beings in natural language.   
+
+KRR is not just about storing data in a database, it allows a machine to learn from that 
+knowledge and behave intelligently like a human being.   
+
+The different kinds of knowledge that need to be represented in AI include: –   
+
+•  Objects  
+
+•  Events   
+
+•  Performance   
+
+•  Facts   
+
+•  Meta-Knowledge   
+
+•  Knowledge-base   
+
+Types of Knowledge   
+
+•  Declarative Knowledge – It includes concepts, facts, and objects and expressed in a 
+declarative sentence.  
+
+•  Structural Knowledge – It is a basic problem-solving knowledge that describes the 
+relationship between concepts and objects.   
+
+•  Procedural Knowledge – This is responsible for knowing how to do something and 
+includes rules, strategies, procedures, etc.   
+
+•  Meta Knowledge – Meta Knowledge defines knowledge about other types of 
+Knowledge.   
+
+•  Heuristic Knowledge – This represents some expert knowledge in the field or subject.   
+
+Cycle of Knowledge Representation in AI  
+
+Artificial Intelligent Systems usually consist of various components to display their intelligent 
+behavior. Some of these components include:   
+
+•  Perception  
+
+•  Learning   
+
+•  Knowledge Representation & Reasoning   
+
+•  Planning   
+
+•  Execution   
+
+  
+  
+  
+Example:   
+
+•  The Perception component retrieves data or information from the environment.   
+
+•  with the help of this component, you can retrieve data from the environment, find 
+out the source of noises and check if the AI was damaged by anything.   
+
+•  Also, it defines how to respond when any sense has been detected. Example  
+
+•  Then, there is the Learning Component that learns from the captured data by the 
+perception component.   
+
+•  The goal is to build computers that can be taught instead of programming them. 
+Learning focuses on the process of self-improvement.   
+
+In order to learn new things, the system requires knowledge acquisition, inference, 
+
+• 
+acquisition of heuristics, faster searches, etc.   
+
+•  The main component in the cycle is Knowledge Representation and Reasoning which 
+shows the humanlike intelligence in the machines.   
+
+•  Knowledge representation is all about understanding intelligence.   
+
+• 
+Instead of trying to understand or build brains from the bottom up, its goal is to 
+understand and build intelligent behavior from the top-down and focus on what an 
+agent needs to know in order to behave intelligently.   
+
+  
+ 
+
