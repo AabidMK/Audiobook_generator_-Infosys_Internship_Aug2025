@@ -66,5 +66,3 @@ def extract_to_markdown(file_path, md_path="output.md"):
         raise ValueError("Unsupported file format. Please provide a PDF, DOCX, or image.")
 
     write_to_markdown(content, md_path)
-
-extract_to_markdown("F:\Internship\First Review final.pptx", "F:/Internship/output (4).md")
