@@ -1,0 +1,5 @@
+Library,Sequence Similarity,WER,CER,BLEU
+PyPDF2,0.9798,0.1512,0.0345,0.9569
+pdfplumber,0.9565,0.1954,0.0663,0.959
+PyMuPDF,0.9823,0.127,0.0294,0.9953
+pdfminer.six,0.8672,0.2981,0.2238,0.9285
