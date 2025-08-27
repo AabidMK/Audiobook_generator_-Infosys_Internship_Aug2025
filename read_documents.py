@@ -1,11 +1,12 @@
+# Task -2
 import os
 import pdfplumber
 from docx import Document
 from markdownify import markdownify as md  # For converting TXT to Markdown
-import pytesseract
-from PIL import Image
-import pytesseract
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+import easyocr
+
+# Initialize EasyOCR reader (English)
+reader = easyocr.Reader(['en'])
 
 # ---------------- PDF ----------------
 def extract_text_from_pdf(file_path):
@@ -41,12 +42,13 @@ def extract_text_from_txt(file_path):
         print(f"Error reading TXT file: {e}")
     return text.strip()
 
-# ---------------- IMAGE (OCR) ----------------
+# ---------------- IMAGE (OCR with EasyOCR) ----------------
 def extract_text_from_image(file_path):
     text = ""
     try:
-        img = Image.open(file_path)
-        text = pytesseract.image_to_string(img)
+        results = reader.readtext(file_path)
+        for (_, detected_text, _) in results:
+            text += detected_text + " "
     except Exception as e:
         print(f"Error reading Image file: {e}")
     return text.strip()
@@ -71,7 +73,7 @@ def extract_text(file_path):
         raise ValueError(f"Unsupported file format: {ext}")
 
 # ---------------- Run Script ----------------
-if __name__ == "_main_":
+if __name__ == "__main__":
     files_to_extract = ["invoice.pdf", "summary.docx", "todo_list.txt", "sample_image.png"]
 
     for file_name in files_to_extract:
