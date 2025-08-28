@@ -1,0 +1,53 @@
+Alright, let's talk about something really important when you're creating PDFs: making sure your tables are accessible. It's not just about looking good; it's about making sure everyone, including those using screen readers, can understand and navigate your data easily. We're going to walk through a bunch of examples to see what works well and what to avoid.
+
+### The Basics: Structure and Footnotes
+
+First up, **Table 1**. This is your foundational table, showing how a simple structure works: clear column headers at the top, row headers down the side, and then your data cells. Pretty straightforward, right?
+
+Sometimes, your data needs a little extra explanation. **Table 2** gives us an example of how to reference footnotes from *within* your table. You'll see little numbers next to certain figures, and then the notes below, like a provisional total or costs for specific programs. We see this concept revisited in **Table 20**, showing the same idea.
+
+Now, if you want to make it even cleaner, **Table 21** demonstrates how to replace those tiny footnote numbers with a more integrated summary text. This explains the details without breaking the flow of the table itself. And for more complex scenarios, **Table 22** illustrates how to reference *multiple* endnotes, directing users to a specific page where all your notes are compiled.
+
+### Layout and Headers: Getting it Right
+
+Ever seen film credits? **Table 3** mimics that style: Main Character, Sidekick, Professor... but without explicit column headers, it's a bit ambiguous. What are 'Main character' and 'Daniel Radcliffe' *doing* together? That's why **Table 4** immediately improves it by adding clear column headers: 'Role' and 'Actor'. Much better for understanding!
+
+Let's dive into some financial data. **Table 5** presents a standard year-end financial statement with non-current and current assets across three years. It's well-structured. We can also break down these larger tables for clarity. **Table 7** focuses just on the 'Non-current assets' section, while **Table 8** extracts the 'Current assets.' This can be really helpful for users who only need specific pieces of information.
+
+Now, here's where things can get tricky. **Table 6** is called "a table with a more serious headings problem." Why? Because you have 'Rainfall (inches)' at the top, then years, then continents, then 'Average,' '24 hour high.' It's hard to tell what's a primary header and what's a sub-header. This makes it a nightmare for screen readers. It's a prime example of where clear heading structure is crucial. **Table 9** is a more specific example, pulling out just the rainfall by continent for 2009.
+
+**Table 24** and **Table 28** are very similar to Table 5, showing year-end financial statements with assets, liabilities, and provisions. They highlight common layouts you'll encounter and reinforce the need for proper heading structures throughout, especially when you have sections within sections like "Non-current assets" and "Current assets."
+
+And **Table 29** is another complex example, showing multiple header attributes for each data cell – like rainfall figures for South America in 2010, broken down by 'Highest average,' '24 hours,' and '12 hours.' This needs careful, explicit structuring to be accessible, so a screen reader can announce the full context for each number.
+
+### Symbols vs. Text: Clarity is Key
+
+Imagine a survey with 'yes' and 'no' answers, but they're represented by graphic symbols, like a checkmark and an 'x'. **Table 13** shows this. While visually clear to some, it's completely inaccessible to screen readers, which can't interpret those symbols. So, **Table 14** demonstrates the fix: replace those symbols with actual text – 'Yes' or 'No.' Simple, but vital.
+
+### Problematic Layouts and Their Solutions
+
+Now, sometimes tables have inherent layout problems. **Table 10** is an example of a "self-contained year-end statement" with "multiple layout problems." You'll see things like "Increase in value, WIP" without a clear heading above it, or big blank spaces, making it messy and hard to parse. But don't worry, **Table 11** immediately resolves these issues. It cleans up the layout, adds clear 'Income' and 'Total income' rows, and better organizes 'Administrative costs' and 'Programme costs' with consistent formatting. This is what an accessible, well-structured table looks like.
+
+Here's a big no-no for accessibility: merged data cells. **Table 12** warns us that they are "not recommended." When you have a single cell spanning multiple columns, it utterly confuses screen readers and makes the data impossible to interpret logically. Avoid them if you can!
+
+### Displaying and Filtering Data
+
+Let's look at some course offerings. **Table 15** lists courses from Institution X, along with their degree types (Bachelor of Science, Masters, etc.) across several years. It's a lot of information in one place. What if we only want to see Masters courses? **Table 16** shows us how that data can be filtered, presenting just the Masters courses offered each year. It's the same base data, just presented for a different purpose. **Table 26** is another variation on that theme, showing a slightly different set of course offerings and degree types, again emphasizing how data can be presented in various ways depending on the need.
+
+### Financial Clarity and Time Series
+
+Going back to financials, **Table 17** shows a basic 'accounts, 2011' statement. All values are positive. But in accounting, costs are often represented as negative. **Table 18** corrects this, showing administrative and program costs clearly marked with negative signs, which is standard practice and makes the true 'Balance' much easier to understand at a glance.
+
+**Table 19** gives us a look at Human Development Index trends from 1980 to 2010. It's a great example of a simple time-series table, showing how a country's HDI changed over decades.
+
+### The Tab Trap: A Crucial Warning!
+
+Now, a crucial warning! Never, ever try to simulate a table using tabs, like you see in **Table 23** or **Table 27**. While it might *look* like a table on screen, it has absolutely no underlying structure for a screen reader. It's just a jumble of text and spaces. This is completely inaccessible and defeats the purpose of your data. Always use proper table elements.
+
+### Advanced Accessibility: Setting Scope
+
+Finally, for advanced accessibility, **Table 25** reminds us about "setting column and row scope via the tags panel." This is a more technical aspect where you explicitly tell the PDF tags which cells are headers for which data, ensuring perfect interpretation for assistive technologies.
+
+### Wrapping Up
+
+So, as you can see, designing accessible PDF tables involves more than just putting data into rows and columns. It's about clear headings, thoughtful structure, appropriate use of text over symbols, avoiding merged cells, and never simulating tables with tabs. By paying attention to these details, you ensure your valuable data is truly accessible and understandable to everyone who needs it.
