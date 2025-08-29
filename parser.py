@@ -4,6 +4,8 @@ import docx
 from PIL import Image
 import pytesseract
 from pptx import Presentation
+from dotenv import load_dotenv
+import google.generativeai as genai
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 def extract_pdf_text(pdf_path):
@@ -66,3 +68,14 @@ def extract_to_markdown(file_path, md_path="output.md"):
         raise ValueError("Unsupported file format. Please provide a PDF, DOCX, or image.")
 
     write_to_markdown(content, md_path)
+
+
+extract_to_markdown(r"F:\Internship\First Review final.pptx", "F:/Internship/output (4).md")
+load_dotenv(dotenv_path="F:\Internship\secrets.env")
+api_key = os.getenv("GOOGLE_API_KEY")
+genai.configure(api_key=api_key)
+model = genai.GenerativeModel("gemini-1.5-flash")
+with open("F:/Internship/output (4).md", "r", encoding="utf-8") as f:
+    markdown_content = f.read()
+response = model.generate_content(f"generate speakable content from the content about 5 min:\n\n{markdown_content}")
+print(response.text)    
