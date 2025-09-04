@@ -1,0 +1,945 @@
+2025-08-28 19:07:58,256 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-08-28 19:07:59,640 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-28 19:07:59,641 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-28 19:08:08,777 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-28 19:08:08,778 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-28 19:08:08,778 [INFO] Pipeline complete!
+2025-08-28 19:10:22,336 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-08-28 19:10:23,390 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-28 19:10:23,391 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-28 19:10:31,111 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-28 19:10:31,111 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-28 19:10:31,112 [INFO] Pipeline complete!
+2025-08-28 19:23:12,414 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-08-28 19:23:13,718 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-28 19:23:13,718 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-28 19:23:21,172 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-28 19:23:21,172 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-28 19:23:21,172 [INFO] Pipeline complete!
+2025-08-29 11:31:47,781 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-08-29 11:31:50,159 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-29 11:31:50,159 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-29 11:31:57,876 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-29 11:31:57,876 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-29 11:31:57,876 [INFO] Pipeline complete!
+2025-08-29 18:30:29,163 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-08-29 18:31:04,885 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-08-29 18:31:14,790 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-08-29 18:31:29,735 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-08-29 18:32:21,566 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-08-29 18:32:24,204 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-29 18:32:24,204 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-29 18:32:33,460 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-29 18:32:33,460 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-29 18:32:33,460 [INFO] Pipeline complete!
+2025-08-29 19:02:25,014 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-08-29 19:02:26,456 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-29 19:02:26,456 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-29 19:02:33,068 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-29 19:02:33,069 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-29 19:02:33,069 [INFO] Pipeline complete!
+2025-08-29 19:05:00,986 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-08-29 19:07:23,357 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-29 19:07:23,360 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-29 19:07:28,034 [ERROR] Gemini API Error: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. [violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-1.5-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+  quota_value: 250000
+}
+, links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, retry_delay {
+  seconds: 32
+}
+]
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 115, in rewrite_with_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.ResourceExhausted: 429 You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. [violations {
+  quota_metric: "generativelanguage.googleapis.com/generate_content_free_tier_input_token_count"
+  quota_id: "GenerateContentInputTokensPerModelPerMinute-FreeTier"
+  quota_dimensions {
+    key: "model"
+    value: "gemini-1.5-flash"
+  }
+  quota_dimensions {
+    key: "location"
+    value: "global"
+  }
+  quota_value: 250000
+}
+, links {
+  description: "Learn more about Gemini API quotas"
+  url: "https://ai.google.dev/gemini-api/docs/rate-limits"
+}
+, retry_delay {
+  seconds: 32
+}
+]
+2025-08-29 19:07:28,291 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-29 19:07:28,291 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-29 19:07:28,292 [INFO] Pipeline complete!
+2025-09-02 18:53:47,404 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-09-02 18:56:18,113 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-09-02 18:56:46,015 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+2025-09-02 18:56:57,266 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 615.0, 794.5) is not fully within parent page bounding box (0.0, 0.0, 615.0, 794.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 615.0, 794.5) is not fully within parent page bounding box (0.0, 0.0, 615.0, 794.5)
+2025-09-02 18:56:58,425 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+2025-09-02 18:56:58,567 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+2025-09-02 18:57:00,148 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 615.0, 794.5) is not fully within parent page bounding box (0.0, 0.0, 615.0, 794.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 615.0, 794.5) is not fully within parent page bounding box (0.0, 0.0, 615.0, 794.5)
+2025-09-02 18:57:15,782 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 793.5001, 613.5) is not fully within parent page bounding box (0.0, 0.0, 793.5, 613.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 793.5001, 613.5) is not fully within parent page bounding box (0.0, 0.0, 793.5, 613.5)
+2025-09-02 18:57:31,084 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-02 18:57:31,085 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-02 18:57:32,049 [ERROR] Gemini API Error: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 115, in rewrite_with_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.InvalidArgument: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-02 18:57:32,225 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-02 18:57:32,225 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-02 18:57:32,225 [INFO] Pipeline complete!
+2025-09-03 18:27:49,887 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-09-03 18:28:40,701 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-09-03 18:29:13,411 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\tempCodeRunnerFile.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+2025-09-03 18:29:28,019 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 615.0, 794.5) is not fully within parent page bounding box (0.0, 0.0, 615.0, 794.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\tempCodeRunnerFile.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 615.0, 794.5) is not fully within parent page bounding box (0.0, 0.0, 615.0, 794.5)
+2025-09-03 18:29:29,547 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\tempCodeRunnerFile.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+2025-09-03 18:29:29,732 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\tempCodeRunnerFile.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+2025-09-03 18:29:31,471 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 615.0, 794.5) is not fully within parent page bounding box (0.0, 0.0, 615.0, 794.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\tempCodeRunnerFile.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 615.0, 794.5) is not fully within parent page bounding box (0.0, 0.0, 615.0, 794.5)
+2025-09-03 18:29:50,839 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 793.5001, 613.5) is not fully within parent page bounding box (0.0, 0.0, 793.5, 613.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\tempCodeRunnerFile.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 793.5001, 613.5) is not fully within parent page bounding box (0.0, 0.0, 793.5, 613.5)
+2025-09-03 18:30:11,518 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-03 18:30:11,519 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-03 18:30:12,535 [ERROR] Gemini API Error: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\tempCodeRunnerFile.py", line 115, in rewrite_with_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.InvalidArgument: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-03 18:30:12,707 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-03 18:30:12,707 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-03 18:30:12,707 [INFO] Pipeline complete!
+2025-09-03 18:31:05,771 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-09-03 18:31:36,377 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+2025-09-03 18:31:49,630 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 615.0, 794.5) is not fully within parent page bounding box (0.0, 0.0, 615.0, 794.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 615.0, 794.5) is not fully within parent page bounding box (0.0, 0.0, 615.0, 794.5)
+2025-09-03 18:31:50,964 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+2025-09-03 18:31:51,122 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 613.5001, 793.5) is not fully within parent page bounding box (0.0, 0.0, 613.5, 793.5)
+2025-09-03 18:31:52,626 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 615.0, 794.5) is not fully within parent page bounding box (0.0, 0.0, 615.0, 794.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 615.0, 794.5) is not fully within parent page bounding box (0.0, 0.0, 615.0, 794.5)
+2025-09-03 18:32:12,794 [ERROR] Error extracting text from image 1: Bounding box (0.0, -9.999999997489795e-05, 793.5001, 613.5) is not fully within parent page bounding box (0.0, 0.0, 793.5, 613.5)
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 76, in extract_text_from_pdf
+    pil_img = page.crop(img_bbox).to_image(resolution=300).original
+              ~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 548, in crop
+    return CroppedPage(self, bbox, relative=relative, strict=strict)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 692, in __init__
+    test_proposed_bbox(crop_bbox, parent_page.bbox)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\pdfplumber\page.py", line 671, in test_proposed_bbox
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: Bounding box (0.0, -9.999999997489795e-05, 793.5001, 613.5) is not fully within parent page bounding box (0.0, 0.0, 793.5, 613.5)
+2025-09-03 18:32:33,750 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-03 18:32:33,750 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-03 18:32:35,668 [ERROR] Gemini API Error: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 115, in rewrite_with_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.InvalidArgument: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-03 18:32:35,682 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-03 18:32:35,682 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-03 18:32:35,682 [INFO] Pipeline complete!
+2025-09-03 18:37:17,736 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-09-03 18:39:00,694 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-03 18:39:00,694 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-03 18:39:01,550 [ERROR] Gemini API Error: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 137, in rewrite_with_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.InvalidArgument: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-03 18:39:01,568 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-03 18:39:01,568 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-03 18:39:01,569 [INFO] Pipeline complete!
+2025-09-03 18:40:39,326 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-09-03 18:42:21,349 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-03 18:42:21,350 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-03 18:42:22,171 [ERROR] Gemini API Error: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 137, in rewrite_with_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.InvalidArgument: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-03 18:42:22,185 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-03 18:42:22,185 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-03 18:42:22,185 [INFO] Pipeline complete!
+2025-09-03 18:45:46,451 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-09-03 18:47:31,923 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-03 18:47:31,926 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-03 18:47:32,770 [ERROR] Gemini API Error: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 137, in rewrite_with_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.InvalidArgument: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-03 18:47:32,791 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-03 18:47:32,791 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-03 18:47:32,791 [INFO] Pipeline complete!
+2025-09-03 18:57:45,722 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-09-03 18:59:29,845 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-03 18:59:29,847 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-03 18:59:30,771 [ERROR] Gemini API Error: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 137, in rewrite_with_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.InvalidArgument: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-03 18:59:30,813 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-03 18:59:30,813 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-03 18:59:30,814 [INFO] Pipeline complete!
+2025-09-03 19:13:30,186 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-09-03 19:15:28,352 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-03 19:15:28,363 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-09-03 19:15:29,406 [ERROR] Gemini API Error: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 137, in rewrite_with_gemini
+    response = model.generate_content(prompt)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.InvalidArgument: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-03 19:15:29,437 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-03 19:15:29,437 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-09-03 19:15:29,438 [INFO] Pipeline complete!
+2025-09-03 23:50:46,629 [INFO] Using pytesseract for OCR.
+2025-09-03 23:50:51,635 [ERROR] Gemini API Error: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+Traceback (most recent call last):
+  File "c:\Users\kjish\pdf_extraction_test\audiobook_pipeline.py", line 104, in enrich_for_audiobook
+    response = model.generate_content(prompt)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\generativeai\generative_models.py", line 331, in generate_content
+    response = self._client.generate_content(
+        request,
+        **request_options,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\ai\generativelanguage_v1beta\services\generative_service\client.py", line 835, in generate_content
+    response = rpc(
+        request,
+    ...<2 lines>...
+        metadata=metadata,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\gapic_v1\method.py", line 131, in __call__
+    return wrapped_func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 294, in retry_wrapped_func
+    return retry_target(
+        target,
+    ...<3 lines>...
+        on_error=on_error,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 156, in retry_target
+    next_sleep = _retry_error_helper(
+        exc,
+    ...<6 lines>...
+        timeout,
+    )
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_base.py", line 214, in _retry_error_helper
+    raise final_exc from source_exc
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\retry\retry_unary.py", line 147, in retry_target
+    result = target()
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\timeout.py", line 130, in func_with_timeout
+    return func(*args, **kwargs)
+  File "C:\Users\kjish\AppData\Local\Programs\Python\Python313\Lib\site-packages\google\api_core\grpc_helpers.py", line 78, in error_remapped_callable
+    raise exceptions.from_grpc_error(exc) from exc
+google.api_core.exceptions.InvalidArgument: 400 API key not valid. Please pass a valid API key. [reason: "API_KEY_INVALID"
+domain: "googleapis.com"
+metadata {
+  key: "service"
+  value: "generativelanguage.googleapis.com"
+}
+, locale: "en-US"
+message: "API key not valid. Please pass a valid API key."
+]
+2025-09-03 23:50:51,895 [INFO] Saved to C:\Users\kjish\pdf_extraction_test\audiobook_ready.md
+2025-09-03 23:50:51,895 [INFO] Pipeline complete! Audiobook-ready text saved.
+2025-09-03 23:56:30,091 [INFO] Using pytesseract for OCR.
+2025-09-03 23:57:22,353 [INFO] Saved to C:\Users\kjish\pdf_extraction_test\audiobook_ready.md
+2025-09-03 23:57:22,353 [INFO] Pipeline complete! Audiobook-ready text saved.
+2025-09-04 00:20:15,781 [INFO] Using pytesseract for OCR.
+2025-09-04 00:20:40,213 [INFO] Saved to C:\Users\kjish\pdf_extraction_test\audiobook_ready.md
+2025-09-04 00:20:40,214 [INFO] Pipeline complete! Audiobook-ready text saved.
+2025-09-04 18:11:46,559 [INFO] Using pytesseract for OCR.
+2025-09-04 18:12:04,198 [INFO] Saved to C:\Users\kjish\pdf_extraction_test\audiobook_ready.md
+2025-09-04 18:12:04,199 [INFO] Pipeline complete! Audiobook-ready text saved.
+2025-09-04 18:24:25,758 [INFO] Using pytesseract for OCR.
+2025-09-04 18:24:45,169 [INFO] Saved to C:\Users\kjish\pdf_extraction_test\audiobook_ready.md
+2025-09-04 18:24:45,170 [INFO] Pipeline complete! Audiobook-ready text saved.
