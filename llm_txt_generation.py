@@ -9,7 +9,7 @@ import pytesseract
 from PIL import Image
 
 # 🔹 Configure Gemini with API Key (store API key in environment variable)
-genai.configure(api_key=os.getenv("AIzaSyCby1FoR4sSAGqveaa3ei_89SAKZqAATnU"))
+genai.configure(api_key=os.getenv("API KEY"))
 
 # 🔹 Extract text from TXT
 def extract_text_file(file_path):
@@ -120,3 +120,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
