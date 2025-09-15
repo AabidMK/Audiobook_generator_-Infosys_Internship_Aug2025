@@ -1,0 +1,14 @@
+# Ignore virtual environments
+venv/
+venv_tts/
+venv310/
+*/venv310/
+*/venv/
+*/venv_tts/
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore VS Code settings
+.vscode/
