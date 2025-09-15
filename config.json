@@ -1,0 +1,11 @@
+{
+    "llm": {
+        "api_url": "http://localhost:11434/api/generate",
+        "model_name": "llama3.1"
+    },
+    "tts": {
+        "model_name": "tts_models/en/ljspeech/tacotron2-DDC",
+        "use_gpu": false
+    },
+    "output_dir": "output"
+}

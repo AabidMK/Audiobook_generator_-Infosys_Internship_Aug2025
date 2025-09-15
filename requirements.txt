@@ -1,0 +1,10 @@
+streamlit
+pdfplumber
+python-docx
+pytesseract
+Pillow
+requests
+transformers
+torch
+git+https://github.com/coqui-ai/TTS.git
+numpy==1.22.0
