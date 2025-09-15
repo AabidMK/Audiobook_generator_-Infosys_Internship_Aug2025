@@ -1,0 +1,6 @@
+2025-08-29 11:48:46,065 [INFO] Using pytesseract for OCR (less memory intensive).
+2025-08-29 11:48:47,620 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-29 11:48:47,621 [INFO] Raw extracted text saved as: C:\Users\kjish\pdf_extraction_test\raw_extracted.md
+2025-08-29 11:48:55,078 [INFO] Successfully saved to C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-29 11:48:55,078 [INFO] Improved narration saved as: C:\Users\kjish\pdf_extraction_test\improved_narration.md
+2025-08-29 11:48:55,079 [INFO] Pipeline complete!
