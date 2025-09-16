@@ -7,14 +7,23 @@ import pytesseract
 import google.generativeai as genai
 import logging
 
+# -----------------------------------------------------------------------------
+# Logging Setup
+# -----------------------------------------------------------------------------
+
+# Configure logging to write to a file and the console
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("text_extraction.log", encoding='utf-8'),  # Specify encoding for the log file
+        logging.FileHandler("text_extraction.log"),
         logging.StreamHandler(sys.stdout)
     ]
 )
+
+# -----------------------------------------------------------------------------
+# OCR Engine Setup
+# -----------------------------------------------------------------------------
 
 OCR_ENGINE = None
 reader = None
@@ -30,10 +39,21 @@ except ImportError:
         logging.info("Using easyocr for OCR.")
     except ImportError:
         logging.warning("No OCR engine (pytesseract or easyocr) found. OCR will be disabled.")
-        OCR_ENGINE = None  
 
+# -----------------------------------------------------------------------------
+# Output Configuration
+# -----------------------------------------------------------------------------
+
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
+# -----------------------------------------------------------------------------
+# OCR Function
+# -----------------------------------------------------------------------------
 
 def ocr_image(image):
+    """
+    Extract text from an image using OCR.
+    """
     if OCR_ENGINE is None:
         return "[OCR library not installed]"
 
@@ -52,23 +72,26 @@ def ocr_image(image):
         logging.error(f"OCR Error: {e}", exc_info=True)
         return f"[OCR Error: {e}]"
 
+# -----------------------------------------------------------------------------
+# PDF Extraction Function
+# -----------------------------------------------------------------------------
 
 def extract_text_from_pdf(pdf_path):
     """
     Extract text from a PDF file, using OCR on pages and images as needed.
     """
-    all_text = []  
+    text = ""
     try:
         with pdfplumber.open(pdf_path) as pdf:
             for page_num, page in enumerate(pdf.pages, start=1):
-                page_content = [f"\n\n## Page {page_num}\n"]
+                text += f"\n\n## Page {page_num}\n"
                 page_text = page.extract_text() or ""
                 if page_text.strip():
-                    page_content.append(page_text)
+                    text += page_text
                 else:
                     pil_img = page.to_image(resolution=300).original
                     ocr_text = ocr_image(pil_img)
-                    page_content.append(f"\n[OCR Extracted Text]\n{ocr_text}")
+                    text += f"\n[OCR Extracted Text]\n{ocr_text}"
 
                 for img_idx, img in enumerate(page.images, start=1):
                     try:
@@ -76,20 +99,25 @@ def extract_text_from_pdf(pdf_path):
                         img_bbox = (img_obj['x0'], img_obj['top'], img_obj['x1'], img_obj['bottom'])
                         pil_img = page.crop(img_bbox).to_image(resolution=300).original
                         ocr_text = ocr_image(pil_img)
-                        page_content.append(f"\n[Image {img_idx} OCR Text]\n{ocr_text}")
+                        text += f"\n[Image {img_idx} OCR Text]\n{ocr_text}"
                     except Exception as e:
                         logging.error(f"Error extracting text from image {img_idx}: {e}", exc_info=True)
-                        page_content.append(f"\n[Error extracting text from image {img_idx}: {e}]")
+                        text += f"\n[Error extracting text from image {img_idx}: {e}]"
 
-                page_content.append("\n")
-                all_text.extend(page_content)  
+                text += "\n"
     except Exception as e:
         logging.error(f"PDF Extraction Error: {e}", exc_info=True)
         return f"[PDF Extraction Error: {e}]"
-    return "".join(all_text)  
+    return text
 
+# -----------------------------------------------------------------------------
+# DOCX Extraction Function
+# -----------------------------------------------------------------------------
 
 def extract_text_from_docx(docx_path):
+    """
+    Extract text from a DOCX file.
+    """
     try:
         doc = docx.Document(docx_path)
         text = "\n\n".join([para.text for para in doc.paragraphs])
@@ -98,8 +126,14 @@ def extract_text_from_docx(docx_path):
         logging.error(f"DOCX Extraction Error: {e}", exc_info=True)
         return f"[DOCX Extraction Error: {e}]"
 
+# -----------------------------------------------------------------------------
+# Markdown Saving Function
+# -----------------------------------------------------------------------------
 
 def save_as_markdown(content, output_path):
+    """
+    Save the extracted content to a Markdown file.
+    """
     try:
         with open(output_path, "w", encoding="utf-8") as f:
             f.write(content)
@@ -107,23 +141,31 @@ def save_as_markdown(content, output_path):
     except Exception as e:
         logging.error(f"Error saving Markdown: {e}", exc_info=True)
 
+# -----------------------------------------------------------------------------
+# Gemini API Function
+# -----------------------------------------------------------------------------
 
 def rewrite_with_gemini(text, api_key):
-    
+    """
+    Rewrites the given text using the Google Gemini API.
+    """
     try:
         genai.configure(api_key=api_key)
         model = genai.GenerativeModel("gemini-1.5-flash")
-        prompt = f"Get the information and make use it for better narration for an audiobook:\n\n{text}"
+        prompt = f"Rewrite the following text for better narration and listener experience:\n\n{text}"
         response = model.generate_content(prompt)
         return response.text
     except Exception as e:
         logging.error(f"Gemini API Error: {e}", exc_info=True)
         return f"[Gemini API Error: {e}]"
 
+# -----------------------------------------------------------------------------
+# Main Function
+# -----------------------------------------------------------------------------
 
 if __name__ == "__main__":
     file_path = r"C:\Users\kjish\pdf_extraction_test\sample12.pdf"
-    repo_path = r"C:\Users\kjish\pdf_extraction_test"
+    repo_path = r"C:\Users\kjish\pdf_extraction_test"  # Replace with your repository path
     file_ext = os.path.splitext(file_path)[1].lower()
 
     if not os.path.exists(file_path):
