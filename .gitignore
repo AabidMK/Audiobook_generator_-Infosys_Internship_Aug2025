@@ -5,10 +5,17 @@ venv310/
 */venv310/
 */venv/
 */venv_tts/
-
+env/
+env310/
 # Ignore Python cache
 __pycache__/
 *.pyc
 
 # Ignore VS Code settings
 .vscode/
+
+# Node.js
+node_modules/
+dist/
+build/
+.env

@@ -1,0 +1,12 @@
+2025-09-16 01:26:15,928 [INFO] Starting audiobook pipeline for AI AudioBook Generator.pdf
+2025-09-16 01:26:15,928 [INFO] Extracting text from AI AudioBook Generator.pdf
+2025-09-16 01:26:16,568 [INFO] Enriching text for audiobook
+2025-09-16 01:26:16,569 [INFO] Total text chunks: 2
+2025-09-16 01:26:16,579 [INFO] Markdown saved at C:\Users\kjish\Downloads\Output\AI AudioBook Generator_enriched.md
+2025-09-16 01:26:16,580 [INFO] Generating audiobook audio
+2025-09-16 01:26:18,767 [INFO] Using Coqui TTS on device: cpu
+2025-09-16 01:26:18,768 [INFO] Total audio chunks: 2
+2025-09-16 01:31:26,899 [INFO] Audiobook generated: C:\Users\kjish\Downloads\Output\AI AudioBook Generator.mp3
+2025-09-16 01:31:26,992 [INFO] Cleaned up temporary audio chunk files.
+2025-09-16 01:31:27,093 [INFO] Audiobook pipeline completed successfully!
+All outputs saved in: C:\Users\kjish\Downloads\Output

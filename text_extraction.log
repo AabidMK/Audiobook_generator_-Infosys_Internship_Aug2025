@@ -943,3 +943,26 @@ message: "API key not valid. Please pass a valid API key."
 2025-09-04 18:24:25,758 [INFO] Using pytesseract for OCR.
 2025-09-04 18:24:45,169 [INFO] Saved to C:\Users\kjish\pdf_extraction_test\audiobook_ready.md
 2025-09-04 18:24:45,170 [INFO] Pipeline complete! Audiobook-ready text saved.
+2025-09-04 22:10:23,244 [INFO] Using pytesseract for OCR.
+2025-09-04 22:10:23,246 [ERROR] File not found: C:\Users\kjish\pdf_extraction_test\receptors.pdf
+2025-09-04 22:12:49,874 [INFO] Using pytesseract for OCR.
+2025-09-04 22:12:49,875 [ERROR] File not found: C:\Users\kjish\pdf_extraction_test\receptors.pdf
+2025-09-04 22:19:26,530 [INFO] Using pytesseract for OCR.
+2025-09-04 22:19:46,776 [INFO] Using pytesseract for OCR.
+2025-09-04 22:21:09,194 [INFO] Using pytesseract for OCR.
+2025-09-04 22:21:09,197 [ERROR] File not found: C:\Users\kjish\pdf_extraction_test\receptors.pdf
+2025-09-04 22:22:03,811 [INFO] Using pytesseract for OCR.
+2025-09-04 22:22:03,812 [ERROR] File not found: C:\Users\kjish\pdf_extraction_test\pdf_extraction_test\receptors.pdf
+2025-09-04 22:23:26,734 [INFO] Using pytesseract for OCR.
+2025-09-04 22:23:26,736 [ERROR] File not found: c:\Users\kjish\pdf_extraction_test\pdf_extractor_test\..\receptors.pdf
+2025-09-04 22:26:36,032 [INFO] Using pytesseract for OCR.
+2025-09-04 22:26:36,034 [ERROR] File not found: c:\Users\kjish\pdf_extraction_test\..\receptors.pdf
+2025-09-04 22:26:49,286 [INFO] Using pytesseract for OCR.
+2025-09-04 22:27:08,687 [INFO] Saved to C:\Users\kjish\pdf_extraction_test\audiobook_ready.md
+2025-09-04 22:27:08,687 [INFO] Pipeline complete! Audiobook-ready text saved.
+2025-09-08 19:09:56,067 [INFO] Using pytesseract for OCR.
+2025-09-08 19:10:19,048 [INFO] Saved to C:\Users\kjish\pdf_extraction_test\audiobook_ready.md
+2025-09-08 19:10:19,048 [INFO] Pipeline complete! Audiobook-ready text saved.
+2025-09-10 14:57:53,546 [INFO] Using pytesseract for OCR.
+2025-09-10 14:58:25,936 [INFO] Saved to C:\Users\kjish\pdf_extraction_test\audiobook_ready.md
+2025-09-10 14:58:25,937 [INFO] Pipeline complete! Audiobook-ready text saved.

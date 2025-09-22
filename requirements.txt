@@ -1,0 +1,34 @@
+# Core ML
+torch==2.1.2
+torchaudio==2.1.2
+
+# Coqui TTS + dependencies
+coqui-tts==0.23.0
+coqpit-config==0.0.7
+
+# Text & File Processing
+pdfplumber==0.11.0
+python-docx==1.1.2
+pytesseract==0.3.13
+pillow==10.4.0
+
+# Audio Processing
+pydub==0.25.1
+soundfile==0.12.1
+librosa==0.10.1
+
+# Utilities
+tqdm==4.66.5
+numpy==1.26.4
+scipy==1.11.4
+scikit-learn==1.5.2
+
+# OpenAI client
+openai==1.40.0
+fastapi
+uvicorn[standard]
+pypdfium2
+python-dotenv
+aiofiles
+gtts
+openai
