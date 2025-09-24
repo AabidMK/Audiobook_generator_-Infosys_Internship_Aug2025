@@ -1,0 +1,988 @@
+
+--- Page 1 ---
+Neuro-Bloom - Learning Disability Screening & Therapy Platform 
+ 
+Prof. Zarina Begum Mundargi​
+Vishwakrama Institute of Technology, 
+Pune, India 
+zarinabegam.mundargi@vit.edu 
+      
+ Anuj Gosavi​
+Vishwakrama Institute of Technology, 
+Pune, India​
+anuj.gosavi23@vit.edu
+Avishkar Ghodke                           ​
+Vishwakrama Institute of Technology, 
+Pune, India​
+avishkar.ghodke23@vit.edu 
+ 
+Devang Deshpande                         ​
+Vishwakrama Institute of Technology, 
+Pune, India​
+atul.deshpande23@vit.edu 
+ 
+Jineshwari Bagul​
+Vishwakrama Institute of Technology, 
+Pune, India​
+jineshwari.bagul23@vit.edu 
+ 
+ 
+Hardik Rokde​
+Vishwakrama Institute of Technology, 
+Pune, India​
+hardik.rokde23@vit.edu 
+ 
+  
+Abstract—In this project, we introduce an interactive 
+game-based approach to the initial diagnosis of learning 
+disabilities in children. The system is particularly designed for 
+four types of learning disabilities, namely, Dyslexia, Attention 
+Deficit Hyperactivity Disorder (ADHD), Dyscalculia, and 
+Dysgraphia, and is targeted towards children between the age 
+group of 6 to 17 years. A detailed set of four separate games 
+has been designed in order to identify the behavioral 
+characteristics of these disorders through interactive and 
+fun-based play. 
+Designed for direct use by students within the educational 
+setting, the system serves as a pre-screening tool, hence 
+reducing the amount of intervention by parents or teachers. 
+Every game has been specially designed to evaluate 
+corresponding cognitive and behavioral markers, yielding 
+important information about the learning problems of 
+students. This approach is intended to optimize the 
+accessibility, engagement, and data-driven aspects of the first 
+screening phase for education professionals. 
+  
+Preliminary evaluations of the four games have demonstrated 
+promising levels of accuracy in identifying patterns related to 
+specific learning disabilities. The Dyslexia machine learning 
+model exhibited an accuracy rate of 94%, whereas the 
+ADHDNet achieved an accuracy of 91.7%, along with a 
+baseline model accuracy of 84.3%. The accuracy for 
+Dysgraphia varied between 60% and 80% across different 
+epochs. 
+ 
+Keywords—learning disability, ADHD, Dyslexia, Dysgraphia, 
+Dyscalculia, behavioral patterns, engaging gameplay, specially 
+designed games, promising accuracy, early detection. 
+ 
+I.​
+INTRODUCTION 
+  
+Many children worldwide are affected by learning 
+disabilities, impacting their academic progress and overall 
+development. Early identification and intervention are 
+crucial for effective management of these conditions. 
+However, these disabilities often go undetected due to a lack 
+of awareness, knowledge, and resources. 
+  
+This research aims to develop a game-based screening 
+platform to identify children aged 6 to 17 exhibiting 
+behavioral patterns linked to common learning disabilities. 
+The innovation involves four interactive games that require 
+no supervision from parents or teachers. These games 
+monitor responses for primary detection of learning 
+disabilities. 
+  
+The project's goal is to bridge the gap between early signs of 
+learning disabilities and timely professional diagnosis by 
+providing a user-friendly tool for initial screening. By 
+analyzing behavior during gameplay, the system supports 
+educators and caregivers in recognizing potential concerns 
+and pursuing further assessment if needed. 
+ 
+II.​
+LITERATURE SURVEY 
+[1] This document discusses the role of Information and 
+Communication Technology (ICT) as a tool for the 
+screening of students with specific learning disabilities. [2] 
+The paper addresses the enhancement of technology for 
+teaching in lectures, tailored for school going students 
+potentially 
+having learning disabilities, providing a 
+comprehensive analysis. [3] This study represents a critical 
+review of the existing scientific literature regarding the 
+application of ICT, Virtual Reality, multimedia, music, and 
+their effectiveness for children facing special learning 
+challenges. [4] The paper encapsulates the author’s insights 
+into the difficulties encountered by children with reading 
+and learning disabilities as they embark on their reading 
+journey, alongside research focused on early identification 
+and intervention strategies. [5] This paper explores issues 
+related to the diagnosis and assessment of kids with learning 
+disabilities in India’s context. [6] It examines the 
+identification of microdeletion syndromes in patients with 
+intellectual disabilities through the use of molecular genetic 
+testing. [7] The investigation measures adherence within a 
+controlled and randomized trial of a complex intervention 
+aimed at supporting self-regulation for adults having 
+learning disabilities and type 2 diabetes. [8] This study 
+focuses on the co-creation of innovative tools in 
+collaboration with individuals who have intellectual 
+disabilities. [9] The exploration of the invisible aspects of 
+learning disabilities remains a critical area, particularly 
+concerning identification and assessment in the context of 
+India, as mentioned in related scholarly works. 
+ 
+III.​
+METHODOLOGY 
+●​
+The proposed methodology consists of a 
+game-based 
+diagnostic 
+approach. 
+The 
+methodology 
+is 
+centered 
+around 
+the 
+ 
+
+
+--- Page 2 ---
+development and deployment of 4 distinct 
+games, each tailored to specific learning 
+disability, 
+namely 
+dyslexia, 
+dysgraphia, 
+dyscalculia, and ADHD. We have designed 
+behavioral and cognitive pattern assessments 
+for respective disorders. Each game targets 
+specific key areas such as attention span, 
+reading, number sense, and handwriting ability 
+for each child’s interaction. The games are 
+designed to be easily accessible without parent 
+or teacher supervision. Furthermore, this 
+system is scaled as follows- 
+●​
+In schools, all the children take the diagnostic 
+test provided by us, targeting specific key 
+features, aiming to detect early signs of learning 
+disabilities. 
+●​
+Students, based on the results of the test, are 
+shortlisted. 
+●​
+One-on-one interaction of shortlisted students 
+happens with a clinically verified psychiatrist. 
+Parents are informed the same. 
+●​
+Therapy sessions, as per the verdict of the 
+psychiatrist, are taken on our platform. 
+             
+1. Attention Deficit Hyperactivity Disorder (ADHD) 
+   Our platform offers three space-themed games designed 
+for different age groups. These games identify behavioral 
+patterns often linked to Attention Deficit Hyperactivity 
+Disorder 
+(ADHD), 
+including 
+inattention, 
+impulsive 
+behavior, and hyperactivity. These traits are key to clinical 
+diagnosis and are measured through gameplay metrics. Each 
+game gathers user interaction data, which is used in a 
+machine learning model for predicting ADHD early. 
+Moreover, these metrics give valuable information to 
+clinicians who are monitoring the child's behavior. 
+ 
+Fig 1: Working flow for ADHD detection 
+Game 1: Galactic Defender (Wack-a-Alien) 
+This game evaluates attention regulation and response 
+consistency. Children are instructed to protect a space 
+station by clicking on moving alien targets. At the same 
+time, they must ignore unrelated visual distractions like stars 
+and space debris. 
+Metrics captured include: 
+●​
+Error Rate (sc_er): Missed or incorrect clicks on 
+non-targets indicate potential inattention. 
+●​
+Task Completion Time (sc_tct): Prolonged task 
+duration may signal difficulties in sustained 
+attention.. 
+●​
+Response Time Variability (sc_rtv): Inconsistent 
+reaction times show impulsivity. 
+●​
+Distracting Events (sc_de): Unnecessary or erratic 
+clicks reflect hyperactive behavior.  
+These metrics reflect behaviors commonly seen in clinical 
+attention tasks, such as the Continuous Performance Test. 
+Children with ADHD often find it hard to maintain 
+consistent response patterns and may show impulsive or 
+hyperactive tendencies. 
+ 
+Game 2: Wait for Signal 
+The second game simulates a Go/No-Go task. Children must 
+respond only when a green "GO" signal appears. They need 
+to ignore red or blue lights, as well as times when there is no 
+signal. This activity measures impulse control and visual 
+attention. 
+Key metrics include: 
+●​
+False Positives (wfs_fpr): Pressing the spacebar on 
+incorrect signals shows impulsivity.   
+●​
+Premature Responses (wfs_prc): Reacting before 
+any signal appears also shows poor control over 
+impulses.   
+●​
+Gaze Shifts (wfs_gs): Simulated eye-tracking 
+tracks attention shifts; frequent gaze changes 
+indicate distractibility.   
+●​
+Reaction Time (wfs_rt): The speed of correct 
+responses reflects attention and processing speed.   
+●​
+Playtime Duration: Very long interaction time may 
+relate to poor focus or distraction.   
+This task is similar to tests used in clinical settings to 
+evaluate executive functioning and attention control, which 
+are important issues for people with ADHD.   
+ 
+Game 3: Cosmic Pilot 
+Cosmic Pilot challenges players to control a spaceship in a 
+changing environment full of obstacles and directional cues. 
+The child navigates using the arrow keys and must avoid 
+collisions while keeping the target aligned. A unique aspect 
+
+
+[Image 1 OCR - Tesseract]:
+ADHD Diagnostic System
+Game-Based Evaluation
+
+Galactic Defender - Target Wait for Signal - Red/Green
+tracking & distractions light reaction
+
+Cosmic Pilot - Obstacle
+navigation & control
+
+Analyzes attention lapses,
+response delays, distraction
+handling
+
+Monitors control errors,
+movement stability, input
+pressure
+
+Tracks impulsive responses,
+reaction mistakes, gaze shifts
+
+Data Collection
+
+Evaluated using Random
+Forest Model
+
+von Provides insight into
+
+Outputs likelihood of ADHD . . -
+trait Model accuracy: ~88% inattention, hyperactivity,
+raits
+
+impulsivity
+
+
+
+[Image 1 OCR - EasyOCR]:
+ADHD Diagnostic System Game-Based Evaluation Galactic Defender Target Wait for Signal Red/Green Cosmic Pilot Obstacle tracking & distractions light reaction navigation & control Analyzes attention lapses, Monitors control errors, Tracks impulsive responses, response delays, distraction movement stability, input reaction mistakes, gaze shifts handling pressure Data Collection Evaluated using Random Forest Model Provides insight into Outputs likelihood of ADHD Model accuracy: ~88% inattention, hyperactivity, traits impulsivity
+
+--- Page 3 ---
+of this game is an energy bar that needs to be filled before 
+the player can shoot at the chosen targets. This design 
+requires the child to show patience and timing, which helps 
+improve impulse control and planning skills. The game lasts 
+about three minutes and is meant to assess motor regulation 
+and precision. 
+Metrics collected include: 
+●​
+Control Failures (ft_cf): Errors in navigation or a 
+lack of appropriate responses show a lapse in 
+attention.   
+●​
+Mean 
+Movement 
+Variability 
+(ft_mmv): 
+Inconsistent movement patterns indicate difficulties 
+with sustained attention.   
+●​
+Excessive Input Intensity (ft_eii): Overuse or 
+strong inputs might signal hyperactivity.   
+●​
+Target Precision (ft_tp): Low accuracy in target 
+alignment points to impulsivity and poor planning.   
+This game offers insights into how cognitive and motor 
+functions work together and how behavior is controlled. 
+These insights relate to visual tracking and motor 
+coordination tests often used in ADHD evaluations. 
+ 
+ 
+2. Dysgraphia 
+Dysgraphia is a learning disability that affects fine motor 
+skills and a child's ability to produce legible and coherent 
+written language. Symptoms may include inconsistent 
+handwriting, irregular spacing, spelling difficulties, and 
+challenges in organizing ideas on paper. Often, these 
+issues are overlooked during the early stages of a child's 
+education, which can lead to long-term academic challenges 
+and decreased self-esteem. 
+To address this issue, a gamified dysgraphia screening tool 
+has been developed. This tool features an interactive 
+front-end interface combined with a powerful backend 
+powered by deep learning and generative AI. The module 
+is designed to provide a non-invasive, child-centered initial 
+screening that can be easily implemented in school 
+environments 
+without 
+requiring 
+clinical 
+settings or 
+specialized oversight. 
+2.2.1 Game Design and Workflow 
+The game is front-end based around a historical narrative 
+theme, being suitable for children in the age group 7 to 14 
+years old 
+. Upon launching the game: 
+●​
+The child is prompted to enter their name and 
+age. 
+●​
+A brief, age-appropriate paragraph based on a 
+historical event is displayed on screen. 
+●​
+The user is then asked to copy the paragraph in 
+their handwriting under a fixed time constraint. 
+●​
+After completion, the child uploads an image of 
+their handwriting via the platform. 
+2.2.2  Model Architecture and Technical Workflow 
+The uploaded image is processed through a deep learning 
+pipeline built using TensorFlow and Keras libraries. The 
+steps include: 
+●​
+Preprocessing: All images are normalized to a 
+pixel range of [0,1] and resized to 224×224 pixels. 
+●​
+CNN: A Convolutional Neural Network (CNN) 
+was created with the following layers: 
+1.​ Three 
+convolutional 
+layers 
+(ReLU 
+activation). 
+2.​ Two layers for max-pooling. 
+3.​ Dropout layers to prevent overfitting. 
+4.​ Fully connected dense layers leading to a 
+sigmoid output for binary classification. 
+The model training was done on a custom-labeled dataset 
+split into 80% training and 20% testing. Binary 
+cross-entropy loss function and Adam optimizers were 
+brought into use. Over 30 epochs, the model achieved: 
+●​
+Training accuracy: 81.2% 
+●​
+Validation accuracy: 78.4% 
+●​
+Precision: 0.77 
+●​
+Recall: 0.81 
+●​
+F1 Score: 0.79 
+To improve prediction confidence and generalization across 
+diverse handwriting styles, an ensemble strategy was used 
+that includes: 
+●​
+ResNet50 and MobileNetV2: Both pre-trained on 
+ImageNet and fine-tuned on our dataset for feature 
+extraction 
+●​
+The predictions from CNN, ResNet50, and 
+MobileNetV2 were combined using soft voting, 
+yielding an overall accuracy of 82.7% 
+ 
+Fig 2: CNN used for Dysgraphia diagnosis based on 
+handwriting images 
+ 
+ 
+ 
+ 
+
+
+[Image 1 OCR - Tesseract]:
+v
+
+>| >| >|
+Conv2D MaxPool Flatten
+Input + ReLU 2D
+(256x256x3)
+32 2x2 2x2
+3x3 filters
+
+pool size pool size
+
+fT > Dysgraphia
+
+|
+yu
+
+Dense Dense+ Dense Dense+ NonDysagaphia
++ RELU RELU +RELU Sigmoid
+
+128 128 64 1 unit
+3x filters units —_ units
+
+Convolutional Neural Network
+
+
+[Image 1 OCR - EasyOCR]:
+71 Dysgraphia Conv2D MaxPool Flatten Dense Dense + Dense Dense + NonDysagaphia Input ReLU 2D RELU RELU RELU Sigmoid (256x256*3) 32 2x2 2x2 128 128 64 unit 3x3 filters pool size pool size 3x filters units units Convolutional Neural Network
+
+--- Page 4 ---
+2.2.3 Clinical Alignment and Feature Interpretation 
+The following handwriting features were identified as 
+significant indicators of dysgraphia: 
+ 
+Table 1: Clinical Alignment and Feature Interpretation 
+The following image demonstrates the use of machine 
+learning to identify, predict, and conclude the possibility of 
+dysgraphia in the child, which is essential for the early 
+detection and further diagnosis.  
+ 
+ 
+3. Dyslexia 
+Dyslexia is the learning disorder responsible for hampering 
+a person's ability to read, write, spell, and decode words 
+despite having the intelligence to do so. A person having 
+this disorder has difficulty in processing phonemes, which 
+makes recognizing and manipulating sounds in words 
+difficult. 
+Based on the study of recent research papers on Dyslexia, 
+significant features were selected to be calculated for 
+dyslexia prediction. Keeping that in mind, we developed 5 
+games: 
+1.​
+Bubble Bay: This helps in enhancing orthographic 
+awareness because it enables children to practice 
+letter recognition and thereby distinguish between 
+very similar-looking letters, such as n/h and b/d, 
+which are mirror image orientations of each other. 
+Utility: Dyslexic individuals often struggle with 
+processing and recognizing letter forms, especially 
+those that are mirrored or rotationally similar. 
+This game targets a core visual perceptual difficulty 
+associated with dyslexia. 
+2.​
+Word Reef: This game helps provide lexical 
+decision-making by requiring children to identify 
+correctly spelled words from a collection of visually 
+similar distractors. This helps in assessing visual 
+word form recognition and error detection. 
+Utility: Dyslexia often impairs the ability to 
+recognize appropriate word forms and differentiate 
+between the ones that are visually confusing and 
+phonetically similar words. 
+This system, in conclusion, can infer difficulty with 
+word-level decoding. 
+3.​
+Memory Cove: This gamified experience targets 
+working memory capacity, which is a cognitive 
+domain often impaired by dyslexic individuals 
+Utility: Working memory is closely related to 
+reading fluency and comprehension. Dyslexic 
+children often have limited verbal and visual 
+working memory, which affects their ability to 
+decode and retain language patterns. 
+This system indirectly measures cognitive load 
+handling and sequential recall. 
+4.​
+Spell 
+Shore: 
+Focuses 
+on 
+making 
+phoneme-grapheme mapping and spelling skills 
+better, thus training phonological awareness and 
+orthographic precision. 
+Utility: Spelling errors in dyslexic children are often 
+systematic, which can be inferred from the 
+phonological processing deficits underlying them. 
+This game simultaneously provides a method to 
+reinforce correct association. 
+5.​
+Sentence Sea: Helps in enhancing syntactic 
+awareness by enabling children to arrange jumbled 
+words into correct grammatical sentences, thus 
+improving understanding of how a sentence is 
+structured. 
+Utility: Dyslexia may also impair comprehension 
+and syntactic processing, especially in more 
+complex reading tasks. 
+This game, in conclusion, evaluates a child’s ability 
+to mentally organize language. 
+ 
+Overall, this system consists of early identification of the 
+disability in a very friendly and interactive manner, making 
+it a non-invasive testing framework. The model is supported 
+by data-driven insights to identify patterns aligned with 
+clinical symptoms. 
+ 
+ 
+4. Dyscalculia 
+Dyscalculia is a learning disability that specifically impairs 
+a child’s ability to understand and manipulate numbers, 
+recognize patterns, and apply basic math concepts. It often 
+manifests as difficulties in number sense, sequencing, 
+symbolic representation, spatial reasoning, and time 
+management 
+— 
+despite 
+average 
+or 
+above-average 
+intelligence. 
+To address this, our screening platform offers a suite of 
+gamified, age-tailored assessments under a unified “Math 
+Adventure” theme. These include: 
+●​
+Dot Counting Game (ages 6–7): Tests subitizing 
+skills — the ability to perceive quantities without 
+counting.​
+ 
+●​
+Number Comparison Game (ages 8–9): Assesses 
+understanding 
+of 
+magnitude 
+and 
+quantity 
+Feature 
+Extracted 
+Clinical 
+Indicator 
+Model Role 
+Irregular 
+stroke 
+pressure 
+Fine 
+motor 
+instability 
+CNN image 
+analysis 
+Uneven 
+character 
+spacing 
+Visual-motor 
+coordination 
+issue 
+MobileNet + 
+ResNet 
+features 
+Inconsistent 
+letter 
+formation 
+Poor 
+memory-to-m
+otor execution 
+mapping 
+GAN 
+similarity 
+analysis 
+
+
+--- Page 5 ---
+relationships.​
+ 
+●​
+Pattern Completion Game (ages 8–9): Detects 
+logical reasoning and sequencing ability.​
+ 
+●​
+Symbol Confusion Game (ages 10–12): Evaluates 
+the child’s ability to distinguish mathematical 
+symbols.​
+ 
+●​
+Place 
+Value 
+Puzzle 
+(ages 
+9–11): 
+Tests 
+comprehension of numerical structure and place 
+value understanding.​
+ 
+●​
+Basic Word Problem Game (ages 8–10): Applies 
+mathematical reasoning to real-life situations.​
+ 
+●​
+Conversational 
+Math 
+Game 
+(ages 
+8–12): 
+Simulates 
+dialogue-based 
+problem-solving 
+to 
+evaluate real-time math cognition.​
+ 
+●​
+Clock Reading Game (ages 9–12): Assesses time 
+interpretation skills using analog clocks 
+These games are embedded in a candy land-themed 
+environment 
+to 
+reduce 
+test 
+anxiety and improve 
+engagement. Each interaction is monitored and analyzed by 
+a Large Language Model (LLM), which evaluates not 
+only correct answers but the child’s reasoning process, 
+error patterns, and consistency. This holistic approach 
+enables early, low-pressure detection of dyscalculia-related 
+symptoms, making the experience both effective and 
+enjoyable. 
+IV.​
+EXPERIMENTAL RESULTS AND IMPACT 
+The proposed system was tested with specifically 
+designed games representing various learning scenarios. The 
+results display the system’s effectiveness in detecting the 
+behavioral indicators of learning disabilities. The proposed 
+system highlights the value of using interactive, colorful 
+gameplay thoughtfully designed for children of the specified 
+target group. 
+​
+The results achieved have been displayed as follows- 
+1​
+Dyslexia: 
+ 
+Fig 3: Feature importance for dyslexia prediction 
+ 
+ 
+Fig 4: Model Performance Comparison 
+ 
+ 
+Fig 5: Impact analysis of each feature 
+ 
+ 
+ 
+ 
+Fig 6: Classification Report 
+ 
+These graphs demonstrate the various parameters used in 
+the machine learning models, the features, and the 
+performance, respectively. 
+
+
+[Image 1 OCR - Tesseract]:
+Se ee ee ee
+
+
+
+[Image 1 OCR - EasyOCR]:
+FaAmT mdottances Dyslexia predichon 1 1 1
+
+[Image 2 OCR - Tesseract]:
+10
+
+os
+
+os
+
+Model Performance Comparison
+
+Decuracy
+Precision
+cal
+
+Fi score
+
+Random Forest
+
+‘Gradient Boosting
+
+
+
+[Image 2 OCR - EasyOCR]:
+Mode Perfonmance Comparison 1 Accutac Pecision Fl Scorc AuC Kandom forcsl Gludicnt Hoosuing Hybrd Model
+
+[Image 3 OCR - Tesseract]:
+12 = memory_spelling_interaction
+
+17.929 = accuracy_to_time_ratio
+
+sentencesea_accuracy
+40 = bubblebay_accuracy
+
+16 = phonology_orthography_interaction
+691.561 = total_game_time
+
+40 = sentencesea_fallback_accuracy
+
+total_hints
+143.081 = sentencesea_time
+
+22 other features
+
+Waterfall Plot - Impact of Each Feature
+fx) = 0.599
+
+0.60
+
+0.65
+
+0.70
+
+0.75
+ELAX)] =
+
+0.80
+749
+
+
+[Image 3 OCR - EasyOCR]:
+Waterfall Plot Impact of Each Feature flx) = 0.599 12 memory_spelling_interaction 0.08 17.929 = accuracy_to_time_ratio +0.08 40 = sentencesea_accuracy ~0.07 40 bubblebay_ accuracy ~0.06 16 phonology_orthography_interaction -0.05 691.561 total game_time +0.04 40 = sentencesea_fallback_accuracy 0.04 37 = total hints +0.03 143.081 = sentencesea time +0.0 22 other features 0.0 0.60 0.65 0.70 0.75 0.80 E[f(x)] 0.749
+
+[Image 4 OCR - Tesseract]:
+Classification Report:
+
+precision
+
+e 9.99
+
+1 0.91
+accuracy
+
+macro avg 9.95
+
+weishtéd ave: @.95
+
+recall f1-score
+
+2.90
+2.99
+
+0.95
+6.94
+
+0.94
+0.95
+
+0.94
+0.94
+0.94
+
+support
+
+100
+100
+
+200
+200
+200
+
+
+[Image 4 OCR - EasyOCR]:
+Classification Report: precision recall fl-score support 100 0.91 0.99 0.95 100 accuracy 94 200 macro avg 0.95 0.95 0.94 200 Neighted ave 0.95 0 .94 94 200
+
+--- Page 6 ---
+2​
+Attention 
+Deficit 
+Hyperactivity 
+Disorder(ADHD):​
+Fig 7: Confusion Matrix 
+ 
+Fig 8: Evaluation Metrics Comparison​
+ 
+3​
+Dysgraphia 
+ 
+Fig 9: parameters and their values 
+ 
+ 
+ 
+ 
+Fig 10: Training accuracy and validation 
+accuracy using epoch 
+ 
+ 
+Fig 11: Training loss and validation loss using 
+epoch 
+ 
+ 
+V.​
+CONCLUSION AND FUTURE SCOPE 
+A.​ Conclusion 
+The project aims to identify learning disabilities in 
+children early through interactive game-based 
+screening tools. Separate games designed for 
+dyslexia, ADHD, dyscalculia, and dysgraphia 
+allow observation of associated behavioral patterns 
+and serve as primary assessment tools requiring 
+minimal supervision. These engaging games can be 
+used in various schools and provide valuable 
+insights into learning capabilities. 
+ 
+This approach detects early warning signs without 
+a clinical setting, facilitating timely professional 
+intervention. While the current implementation 
+shows usability, further research will help to 
+improve diagnostic accuracy and adapt the games 
+over diverse educational and cultural contexts.  
+ 
+ 
+ 
+B.​ Future Scope 
+    
+Building on the current capabilities, several    
+enhancements can be thought of, to further improve this 
+system’s functionality and applicability: 
+●​
+Integration with school systems: The games can 
+be used across various educational boards by 
+taking their inputs, thereby integrating the games 
+with the school curriculum. 
+●​
+Age group support: By extending the games to 
+age groups under 6 and adolescent learners, who 
+may face challenges with these particular learning 
+disabilities. 
+●​
+Technology-specific 
+algorithm: 
+The 
+Implementation of Machine learning algorithms 
+can be implemented to identify patterns that may 
+be missed by these games. 
+
+
+[Image 1 OCR - Tesseract]:
+True label
+
+Non-ADHD
+
+ADHD
+
+Confusion Matrix
+
+Non-ADHD
+
+Predicted label
+
+ADHD
+
+80
+
+70
+
+60
+
+50
+
+40
+
+30
+
+20
+
+
+[Image 1 OCR - EasyOCR]:
+Confusion Matrix 90 80 Non-ADHD 90 70 60 3 50 @ 40 ADHD 15 84 30 20 Non-ADHD ADHD Predicted label
+
+[Image 2 OCR - Tesseract]:
+
+
+[Image 2 OCR - EasyOCR]:
+14 Training Loss Validation Loss 1,2 1.0 5 0,8 0,6 0.4 Epoch
+
+[Image 3 OCR - Tesseract]:
+Evaluation Metrics Comparison
+
+Metric I ADHDNet Baseline Model
+‘Accuracy | 91.7 84.3
+Precision | 90.5 822
+
+Recall | 93.0 85.1
+Fi-score | O17 36
+
+AUC | 0.942 0.876
+
+
+
+[Image 3 OCR - EasyOCR]:
+Evaluation Metrics Comparison Metric ADHDNet Baseline Model Accuracy 91.7 84.3 Precision 90.5 82.2 Recall 93.0 85.1 Fl-Score 91.7 83.6 AUC 0.942 0.876
+
+[Image 4 OCR - Tesseract]:
+model. summary ()
+
+Model: “sequential”
+
+conv2d (Conv2p) (None, 254, 2 896
+max_pooling2d (laxPooling2D) (None, 127, 127, 32) @
+conv2d_1 (Conv2d) (None, 125, 125, 64) 18,496
+max_pooling2d_1 (MaxPooling2D) | (None, 52, 62, 64) @
+conv2d_2 (Conv2d) (None, 6G, 60, 128 73, 85€
+max_pooling2d 2 (MaxPooling2D) | (None, 30, 30, 128) @
+flatten (Flatten) (None, 115200) @
+dense (Dense) (None, 128) 14 728
+dense_4 (dense) (None, 64) 8, 256
+dense_2 (dense) (None, 1) 6
+
+Total params: 11,217,297 (56.64 MB)
+
+Trainable params: 14,217,797 (56.64 MB)
+
+Non-trainable param: (0.00 B)
+
+
+
+[Image 4 OCR - EasyOCR]:
+model . summary Model: 'sequential" Layer (type) Output Shape Param convzd Conv2D) None 254 254 32) 896 max pooling2d (MaxPooling2d) (None, 127 127, 32) convzd_1 Conv2p) None 125 125 64) 18,496 max pooling2d (MaxPooling2D) None 62 62, 64) convzd_2 Conv2D None 60 60, 128 ) 73,856 max pooling2d_2 (MaxPooling2D) (None, 30, 30, 128) flatten (Flatten) None 115200) dense 'Dense (None, 128) 14,745,728 dense Dense None 64) 8,256 dense Dense_ (None, 65 Total params 14,847,297 (56.64 MB) Trainable params 14,847,297 (56.64 MB) Non-trainable params: (0.00 B)
+
+[Image 5 OCR - Tesseract]:
+—— Training Accuracy
+0.80 7 — validation Accuracy
+
+0.75
+
+0.55
+
+0.50
+
+
+
+[Image 5 OCR - EasyOCR]:
+Training Accuracy 0,80 Validation Accuracy 0.75 0.70 1 0,65 0.60 0.55 0.50 Epoch
+
+--- Page 7 ---
+●​
+More personalized gameplay: Allowing users to 
+get a more comprehensive and dynamic user score, 
+which is personalized. 
+●​
+Incorporating 
+neuro-adaptive 
+feedback: 
+Enhancing accuracy of diagnostics by monitoring 
+stress indicators, attention shifts, and visual 
+scanning behaviour during gameplay. 
+●​
+Extension of system-based architecture: We can 
+extend the architecture to study neuroscience, child 
+psychology, and linguistics, which provides a 
+detailed analysis of the relationship between 
+gameplay behaviour and neural learning pathways. 
+By implementing these improvements, the system can 
+evolve into a more versatile and robust solution, capable of 
+meeting the growing demands for a high-quality learning 
+disability identification system, which may potentially help 
+in the early detection of the disabilities, leading to a better 
+life. 
+ 
+ 
+
