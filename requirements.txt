@@ -32,3 +32,9 @@ python-dotenv
 aiofiles
 gtts
 openai
+
+pypdf
+langchain
+chromadb # Vector storage
+pytest
+boto3

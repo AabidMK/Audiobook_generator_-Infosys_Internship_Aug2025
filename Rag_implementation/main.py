@@ -1,102 +1,202 @@
-import argparse, logging, os
+import argparse
+import logging
+import time
 from pathlib import Path
+from typing import List, Dict, Any
 from src.document_parser import parse_dir, parse_file
 from src.text_chunker import TextChunker
 from src.embedding_manager import EmbeddingManager
 from src.vector_store import VectorStoreManager
-
+from src.ollama_llm import OllamaLLMAnswerGenerator
+import os
 
 def index_documents(input_path, backend="chroma", model="sentence-transformers/all-MiniLM-L6-v2"):
+    """Index documents into Chroma."""
     docs = []
     p = Path(input_path)
+
+    if not p.exists():
+        logging.error(f"Path does not exist: {p}")
+        return 0
+
     if p.is_file():
-        docs.append(parse_file(p))   
+        docs.append(parse_file(p))
     else:
         docs = parse_dir(p)
 
-    # filter empty docs
     docs = [(t, s, f) for (t, s, f) in docs if t and t.strip()]
     if not docs:
-        logging.error("No valid documents found with extractable text. Exiting.")
+        logging.error("No valid documents found with extractable text.")
         return 0
 
-    # chunk documents
     chunker = TextChunker()
     chunks = chunker.chunk_multiple_documents(docs)
     texts = [c.text for c in chunks if c.text.strip()]
 
-    # embeddings
     embedder = EmbeddingManager(model_name=model)
     embeddings = embedder.embed(texts)
     dim = len(embeddings[0]) if embeddings else 384
 
-    # vector store
     store = VectorStoreManager(backend=backend, dim=dim)
     store.add_embeddings(
         ids=[str(i) for i in range(len(texts))],
         embeddings=embeddings,
-        metadatas=[{"file": c.file_path} for c in chunks],
+        metadatas=[{"file": c.file_path, "chunk": idx} for idx, c in enumerate(chunks)],
         documents=texts,
     )
 
-    logging.info("Indexing complete. Added %d chunks." % len(texts))
+    logging.info(f"Indexing complete. Added {len(texts)} chunks.")
     return len(texts)
 
+def query_docs(question: str, backend: str = "chroma",
+               model: str = "sentence-transformers/all-MiniLM-L6-v2",
+               topk: int = 5, llm_model: str = "gemma3:1b") -> Dict[str, Any]:
+    """Retrieve chunks and generate answer using Ollama."""
+    try:
+        embedder = EmbeddingManager(model_name=model)
+        q_emb = embedder.embed([question])[0]
 
-def query_docs(question, backend="chroma", model="sentence-transformers/all-MiniLM-L6-v2", topk=3):
-    embedder = EmbeddingManager(model_name=model)
-    q_emb = embedder.embed([question])[0]
-    store = VectorStoreManager(backend=backend)
-    res = store.query(q_emb, n_results=topk)
+        store = VectorStoreManager(backend=backend)
+        res = store.query(q_emb, n_results=topk)
 
-    out = []
-    if backend == "chroma":
-        docs = res.get("documents", [[]])[0]
-        metas = res.get("metadatas", [[]])[0]
-        for d, m in zip(docs, metas):
-            out.append({"text": d, "meta": m})
-    else:
-        for hit in res:
-            out.append({"text": hit.payload.get("doc"), "meta": hit.payload})
-    return out
+        chunks = []
+        if backend == "chroma":
+            docs = res.get("documents", [[]])[0]
+            metas = res.get("metadatas", [[]])[0]
+            distances = res.get("distances", [[]])[0]
+            
+            for d, m, dist in zip(docs, metas, distances):
+                chunks.append({
+                    "text": d,
+                    "meta": m,
+                    "score": dist
+                })
 
+        if not chunks:
+            return {
+                "answer": "No relevant information found.",
+                "sources": []
+            }
 
-def show_results(results):
-    for i, r in enumerate(results):
-        print(f"--- RESULT {i+1} ---")
-        print("SOURCE:", r["meta"].get("file"))
-        print()
-        print(r["text"][:800])
-        print()
+        # Format context with source information
+        context = "\n\n".join([
+            f"[Source {idx+1}]: {chunk['text'].strip()}"
+            for idx, chunk in enumerate(chunks)
+        ])
 
+        llm = OllamaLLMAnswerGenerator(model_name=llm_model)
+        prompt = (
+            "Based on the provided context, give a detailed and accurate answer. "
+            "Use only information found in the context. "
+            "If you cannot find relevant information, say so clearly.\n\n"
+            f"Context:\n{context}\n\n"
+            f"Question: {question}\n\n"
+            "Answer:"
+        )
+        
+        max_retries = 3
+        answer = None
+        
+        for attempt in range(max_retries):
+            try:
+                # Simplified generate call without max_tokens
+                answer = llm.generate(question=question, context=context)
+                if answer and not answer.startswith("Error"):
+                    break
+                time.sleep(2)
+            except Exception as e:
+                logging.warning(f"Attempt {attempt + 1} failed: {e}")
+                time.sleep(2)
+                continue
+
+        if not answer:
+            return {
+                "answer": "No relevant answer could be generated.",
+                "sources": []
+            }
+
+        return {
+            "answer": answer,
+            "sources": [{
+                "file": chunk["meta"].get("file"),
+                "chunk": chunk["meta"].get("chunk", 0),
+                "score": chunk["score"]
+            } for chunk in chunks]
+        }
+
+    except Exception as e:
+        logging.error(f"Error during query: {str(e)}", exc_info=True)
+        return {
+            "answer": f"Error: {str(e)}",
+            "sources": []
+        }
+
+def show_results(result: Dict[str, Any]):
+    """Display results in a clean, formatted way."""
+    print("\n=== Best Answer ===")
+    print(result["answer"].strip())
+    
+    if result["sources"]:
+        print("\n=== Sources Used ===")
+        for source in sorted(result["sources"], key=lambda x: x["score"])[:3]:
+            filename = os.path.basename(source['file'])
+            print(f"- {filename} (chunk {source['chunk']}, score={source['score']:.3f})")
+    print()
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Document Q&A System")
     sub = parser.add_subparsers(dest="cmd")
 
-    # Index command
-    p_index = sub.add_parser("index")
-    p_index.add_argument("-i", "--input", required=True)
-    p_index.add_argument("--backend", default="chroma")
-    p_index.add_argument("--model", default="sentence-transformers/all-MiniLM-L6-v2")
+    p_index = sub.add_parser("index", help="Index documents for searching")
+    p_index.add_argument("-i", "--input", required=True, help="Input file or directory path")
+    p_index.add_argument("--backend", default="chroma", help="Vector store backend")
+    p_index.add_argument("--model", default="sentence-transformers/all-MiniLM-L6-v2",
+                        help="Embedding model name")
 
-    # Query command
-    p_query = sub.add_parser("query")
-    p_query.add_argument("question")
-    p_query.add_argument("--backend", default="chroma")
-    p_query.add_argument("--model", default="sentence-transformers/all-MiniLM-L6-v2")
-    p_query.add_argument("--topk", type=int, default=3)
+    p_query = sub.add_parser("query", help="Ask questions about documents")
+    p_query.add_argument("question", help="Your question about the documents")
+    p_query.add_argument("--backend", default="chroma", help="Vector store backend")
+    p_query.add_argument("--model", default="sentence-transformers/all-MiniLM-L6-v2",
+                        help="Embedding model name")
+    p_query.add_argument("--topk", type=int, default=3,
+                        help="Number of relevant chunks to retrieve")
+    p_query.add_argument("--llm", default="gemma:3b",
+                        help="Ollama model to use")
 
     args = parser.parse_args()
-    logging.basicConfig(level=logging.INFO)
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s'
+    )
 
-    if args.cmd == "index":
-        index_documents(args.input, backend=args.backend, model=args.model)
-    elif args.cmd == "query":
-        res = query_docs(args.question, backend=args.backend, model=args.model, topk=args.topk)
-        show_results(res)
-    else:
-        parser.print_help()
+    try:
+        if args.cmd == "index":
+            num_chunks = index_documents(
+                args.input,
+                backend=args.backend,
+                model=args.model
+            )
+            print(f"\nIndexed {num_chunks} chunks successfully!")
+            
+        elif args.cmd == "query":
+            result = query_docs(
+                args.question,
+                backend=args.backend,
+                model=args.model,
+                topk=args.topk,
+                llm_model=args.llm
+            )
+            show_results(result)
+            
+        else:
+            parser.print_help()
+            
+    except Exception as e:
+        logging.error(f"Error: {str(e)}")
+        print("\nMake sure you have:")
+        print("1. Indexed some documents first using the 'index' command")
+        print("2. Installed all required packages")
+        print("3. Started the Ollama server")
 
 if __name__ == "__main__":
     main()
