@@ -19,7 +19,7 @@ from enhanced_extraction import EnhancedTextExtraction
 # ═══════════════════════════════════════════════════════════════════
 class StateOfTheArtLLMManager:
     def __init__(self, local_only=False):
-        self.gemini_api_key = "AIzaSyCNboWjDrHTiwMvmdAugFAHC9KCN1XwQEs"
+        self.gemini_api_key = ""
         self.lm_studio_base_url = "http://localhost:1234"
         self.lm_studio_models = [
             "meta-llama-3-8b-instruct", "llama-3.2-3b-instruct", 
