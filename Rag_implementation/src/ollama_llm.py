@@ -2,41 +2,25 @@ import requests
 import logging
 
 class OllamaLLMAnswerGenerator:
-    def __init__(self, model_name: str = "gemma3:1b", host: str = "http://localhost:11434"):
+    def __init__(self, model_name="gemma3:1b", base_url="http://localhost:11434"):
         self.model_name = model_name
-        self.url = f"{host}/api/generate"
-        self.verify_ollama()
-
-    def verify_ollama(self) -> None:
-        try:
-            resp = requests.get("http://localhost:11434/api/tags")
-            resp.raise_for_status()
-            logging.info(f"Initialized Ollama with model: {self.model_name}")
-        except Exception as e:
-            raise RuntimeError(f"Ollama service not available: {e}")
+        self.base_url = base_url
+        logging.info(f"Initialized Ollama with model: {self.model_name}")
 
     def generate(self, question: str, context: str) -> str:
+        prompt = (
+            "Use the provided context to answer the question. "
+            "Do not hallucinate. If not found, say clearly.\n\n"
+            f"Context:\n{context}\n\nQuestion: {question}\nAnswer:"
+        )
         try:
-            # Simplified prompt template
-            prompt = (
-                f"Context:\n{context}\n\n"
-                f"Question: {question}\n\n"
-                f"Answer:"
+            response = requests.post(
+                f"{self.base_url}/api/generate",
+                json={"model": self.model_name, "prompt": prompt, "stream": False},
             )
-
-            resp = requests.post(
-                self.url,
-                json={
-                    "model": self.model_name,
-                    "prompt": prompt,
-                    "stream": False,
-                    "temperature": 0.7,
-                    "num_predict": 2000  # Using num_predict instead of max_tokens
-                },
-                timeout=30
-            )
-            resp.raise_for_status()
-            return resp.json()["response"].strip()
+            response.raise_for_status()
+            data = response.json()
+            return data.get("response", "").strip()
         except Exception as e:
             logging.error(f"Generation error: {e}")
-            raise
+            return "Error: could not generate answer."

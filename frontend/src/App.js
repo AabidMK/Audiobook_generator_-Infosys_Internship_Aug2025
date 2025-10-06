@@ -8,7 +8,7 @@ import { Badge } from './components/ui/badge';
 import { Trash2, Download, Upload, BookOpen, Volume2, FileText } from 'lucide-react';
 import QABox from "./components/ui/QABox";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = "http://localhost:8000"; // Make sure this matches your FastAPI port
 
 function App() {
   const [jobs, setJobs] = useState([]);
@@ -36,17 +36,16 @@ function App() {
   const handleFileUpload = async (file) => {
     if (!file) return;
 
-    // Validate file type
     const allowedTypes = ['.pdf', '.docx', '.txt'];
     const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
-    
+
     if (!allowedTypes.includes(fileExtension)) {
       alert('Please upload a PDF, DOCX, or TXT file');
       return;
     }
 
     setIsUploading(true);
-    
+
     try {
       const formData = new FormData();
       formData.append('file', file);
@@ -84,21 +83,21 @@ function App() {
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    
+
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       handleFileUpload(e.dataTransfer.files[0]);
     }
   };
 
-  const handleDownload = async (jobId, filename) => {
+  const handleDownload = async (jobId, audioFile) => {
     try {
-      const response = await fetch(`${BACKEND_URL}/api/download/${jobId}`);
+      const response = await fetch(`${BACKEND_URL}/api/download/${jobId}/${audioFile}`);
       if (response.ok) {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${filename.split('.')[0]}_audiobook.mp3`;
+        a.download = audioFile;
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
@@ -219,16 +218,6 @@ function App() {
                     PDF, DOCX, TXT files up to 50MB
                   </p>
                 </div>
-                
-                {!isUploading && (
-                  <Button 
-                    size="lg" 
-                    className="bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white px-8 py-3 rounded-xl font-medium transition-all duration-200 transform hover:scale-105"
-                  >
-                    <Upload className="w-4 h-4 mr-2" />
-                    Choose File
-                  </Button>
-                )}
               </div>
             </div>
           </CardContent>
@@ -309,14 +298,14 @@ function App() {
                       </div>
 
                       <div className="flex items-center space-x-2 ml-4">
-                        {job.status === 'completed' && (
+                        {job.status === 'completed' && job.audio_files && (
                           <Button
-                            onClick={() => handleDownload(job.id, job.filename)}
+                            onClick={() => handleDownload(job.id, job.audio_files[0])}
                             size="sm"
                             className="bg-emerald-500 hover:bg-emerald-600 text-white px-4 py-2 rounded-lg transition-colors"
                           >
                             <Download className="w-4 h-4 mr-1" />
-                            Download
+                            Download Audio
                           </Button>
                         )}
                         

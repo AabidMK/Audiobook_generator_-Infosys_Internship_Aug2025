@@ -5,6 +5,7 @@ from pydub import AudioSegment
 from tqdm import tqdm
 from TTS.api import TTS
 import shutil
+import torch
 
 logging.basicConfig(
     level=logging.INFO,
@@ -23,7 +24,7 @@ def generate_audiobook(text: str, output_basename: str, chunk_size: int = 700):
     chunk_dir.mkdir(parents=True, exist_ok=True)
 
     # Initialize Coqui TTS
-    device = "cuda" if "cuda" in TTS.list_models()[0] else "cpu"  # fallback device detection
+    device = "cuda" if torch.cuda.is_available() else "cpu"
     tts = TTS("tts_models/en/ljspeech/tacotron2-DDC", progress_bar=True, gpu=(device=="cuda"))
     logging.info(f"Using Coqui TTS on device: {device}")
 
@@ -66,3 +67,16 @@ def generate_audiobook(text: str, output_basename: str, chunk_size: int = 700):
         logging.info("Cleaned up temporary audio chunk files.")
     except Exception as e:
         logging.warning(f"Cleanup failed: {e}")
+
+
+# ---------------------- MAIN ----------------------
+if __name__ == "__main__":
+    sample_text = """
+    Artificial intelligence is transforming the world.
+    From healthcare to education, AI is enabling new possibilities.
+    This is a demo audiobook generated with Coqui TTS.
+    """
+    output_file = "output/audiobook"   # final files: audiobook.wav + audiobook.mp3
+    Path("output").mkdir(exist_ok=True)
+    
+    generate_audiobook(sample_text, output_file)
