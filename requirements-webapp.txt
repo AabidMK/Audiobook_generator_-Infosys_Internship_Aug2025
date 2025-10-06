@@ -1,0 +1,17 @@
+fastapi
+uvicorn[standard]
+python-multipart
+chromadb
+sentence-transformers
+google-generativeai
+tiktoken
+python-dotenv
+pdfplumber
+python-docx
+gTTS
+edge-tts
+pytesseract
+Pillow
+# easyocr is optional (big); if you prefer it, also add:
+# easyocr
+# opencv-python-headless

@@ -1,25 +1,28 @@
+# text_extraction_gemini.py
 import os
+import sys
 import re
 import time
-import argparse
-from typing import List
-
-import fitz  # PyMuPDF
-from docx import Document
-from PIL import Image
-import tkinter as tk
-from tkinter import filedialog
-
-# Correct Google SDK import
+import glob
 import google.generativeai as genai
+from dotenv import load_dotenv
 
+# ---------------- Load API key from .env ----------------
+load_dotenv()  # expects a .env with GOOGLE_API_KEY=...
 
-# ---------------- Config (tuned for free tier) ----------------
-GEMINI_MODEL = "gemini-1.5-flash"
-DEFAULT_PAGES_PER_CHUNK = 24      # e.g., 600 pages -> ~25 requests
-DEFAULT_TEMPERATURE = 0.4
-MAX_REQUESTS_PER_RUN = 45         # safety below ~50/day free tier
-PAUSE_BETWEEN_CALLS_SEC = 0.15
+TEMPERATURE = 0.4
+MAX_CHARS = 12000            # per-request chunk size
+BACKOFF_BASE = 6             # seconds for simple backoff
+
+# If you want to bias toward a model, put it first here; the code
+# will still verify availability via list_models().
+PREFERRED_MODELS = [
+    "gemini-1.5-flash-8b",
+    "gemini-1.5-flash-latest",
+    "gemini-1.5-flash",
+    "gemini-1.5-pro",
+    "gemini-2.0-flash-lite-preview-02-05",  # sometimes available for free tier
+]
 
 REWRITE_PROMPT = (
     "Rewrite the following text for clear, engaging narration suitable for an audiobook listener. "
@@ -30,7 +33,18 @@ REWRITE_PROMPT = (
 
 
 # ---------------- Helpers ----------------
-def normalize_text(s: str) -> str:
+def ensure_api_key():
+    api_key = os.getenv("GOOGLE_API_KEY", "").strip()
+    if not api_key:
+        raise RuntimeError(
+            "GOOGLE_API_KEY not found. Create a .env file with:\n"
+            "GOOGLE_API_KEY=your_key_here"
+        )
+    # Configure the SDK (defaults to v1 API in recent versions)
+    genai.configure(api_key=api_key)
+
+
+def normalize(s: str) -> str:
     s = s.replace("\u00A0", " ")
     s = re.sub(r"[ \t]+", " ", s)
     s = re.sub(r"\r?\n\s*", "\n", s)
@@ -38,238 +52,117 @@ def normalize_text(s: str) -> str:
     return s.strip()
 
 
-def ensure_api_key():
-    api_key = os.environ.get("GOOGLE_API_KEY", "").strip()
-    if not api_key:
-        raise RuntimeError(
-            "GOOGLE_API_KEY is not set. In PowerShell run:\n"
-            '  setx GOOGLE_API_KEY "YOUR_API_KEY"\n'
-            "Open a new terminal and run again."
-        )
-    genai.configure(api_key=api_key)
+def chunk_text(s: str, max_chars: int):
+    s = s.strip()
+    start = 0
+    while start < len(s):
+        end = min(start + max_chars, len(s))
+        # Prefer to cut on a paragraph boundary if possible
+        cut = s.rfind("\n\n", start, end)
+        if cut == -1 or cut <= start + 1000:
+            cut = end
+        yield s[start:cut]
+        start = cut
 
 
-def save_header_once(path: str, header: str):
-    if not os.path.exists(path):
-        with open(path, "w", encoding="utf-8") as f:
-            f.write(header + "\n\n")
-
-
-def append_md(path: str, content: str):
-    with open(path, "a", encoding="utf-8") as f:
-        f.write(content)
-        if not content.endswith("\n"):
-            f.write("\n")
-
-
-# ---------------- Extractors ----------------
-def extract_pdf_pages(pdf_path: str):
-    """Yield (1-based page_number, text, total_pages) and print terminal progress."""
-    doc = fitz.open(pdf_path)
-    total = len(doc)
-    for i in range(total):
-        text = doc[i].get_text("text") or ""
-        text = normalize_text(text)
-        print(f"Extracting page {i+1}/{total} ...")
-        yield (i + 1, text, total)
-    doc.close()
-
-
-def extract_docx(path: str) -> str:
-    doc = Document(path)
-    return "\n".join(p.text for p in doc.paragraphs).strip()
-
-
-def extract_txt(path: str) -> str:
-    with open(path, "r", encoding="utf-8", errors="ignore") as f:
-        return f.read().strip()
-
-
-def extract_image(path: str) -> str:
+def pick_available_model():
     """
-    Prefer easyocr to avoid triggering pandas/numexpr stack pulled by pytesseract.
-    Import lazily so NumPy/pandas issues don’t break startup.
+    Query the project’s available models and pick one that supports generateContent.
+    Falls back sensibly if listing is restricted.
     """
     try:
-        import easyocr
-        reader = easyocr.Reader(["en"])
-        result = reader.readtext(path, detail=0)
-        return "\n".join(result).strip()
+        available = genai.list_models()
+        names = []
+        for m in available:
+            # m.name is like "models/gemini-1.5-flash-8b"
+            short = m.name.split("/")[-1]
+            if "generateContent" in getattr(m, "supported_generation_methods", []):
+                names.append(short)
+
+        # Prefer one from our preferred list
+        for cand in PREFERRED_MODELS:
+            if cand in names:
+                return cand
+
+        # Otherwise, take any that supports generateContent
+        if names:
+            print("No preferred model found; using:", names[0])
+            return names[0]
+
+        # As a last resort, try a commonly-available short name
+        print("No listable models found; attempting gemini-1.5-flash-8b")
+        return "gemini-1.5-flash-8b"
+
     except Exception as e:
-        # Fallback to pytesseract only if available; may need numpy<2 or updated deps
-        try:
-            import pytesseract
-            img = Image.open(path)
-            return pytesseract.image_to_string(img).strip()
-        except Exception as e2:
-            raise RuntimeError(
-                f"OCR failed. easyocr error: {e}. pytesseract error: {e2}. "
-                "Consider: pip install easyocr OR install Tesseract and ensure numpy/pandas stack is compatible."
-            )
+        # If list_models fails (permissions, network), try a sane default
+        print(f"Model listing failed ({e}); attempting gemini-1.5-flash-8b")
+        return "gemini-1.5-flash-8b"
 
 
-# ---------------- Gemini ----------------
-def rewrite_with_gemini_retry(text: str, temperature: float, max_retries: int = 3) -> str:
-    ensure_api_key()
-    model = genai.GenerativeModel(GEMINI_MODEL)
+def rewrite_chunk(model, text: str, attempt: int = 1) -> str:
     prompt = f"{REWRITE_PROMPT}\n\n---\n{text}"
-    last_err = None
-    for attempt in range(1, max_retries + 1):
-        try:
-            resp = model.generate_content(
-                prompt,
-                generation_config={"temperature": temperature},
-            )
-            return (resp.text or "").strip()
-        except Exception as e:
-            last_err = e
-            wait_s = 5 * attempt
-            try:
-                msg = str(e)
-                if "retry_delay" in msg and "seconds" in msg:
-                    import re as _re
-                    m = _re.search(r"retry_delay\s*{\s*seconds:\s*(\d+)", msg)
-                    if m:
-                        wait_s = max(wait_s, int(m.group(1)))
-            except Exception:
-                pass
-            if attempt == max_retries:
-                break
-            print(f"[429/backoff] Waiting {wait_s}s then retrying (attempt {attempt}/{max_retries})...")
-            time.sleep(wait_s)
-    raise last_err if last_err else RuntimeError("Rewrite failed")
-
-
-# ---------------- Core processing ----------------
-def process_pdf(path: str, pages_per_chunk: int, do_rewrite: bool, temperature: float):
-    base = os.path.splitext(os.path.basename(path))[0]
-    out_dir = os.path.dirname(os.path.abspath(path))
-    raw_md = os.path.join(out_dir, f"{base}_raw.md")
-    rew_md = os.path.join(out_dir, f"{base}_rewritten.md")
-
-    save_header_once(raw_md, f"# Extracted Text ({base})")
-    if do_rewrite:
-        save_header_once(rew_md, f"# Rewritten Text ({base})")
-
-    used_requests = 0
-    buf: List[str] = []
-    chunk_start = None
-
-    # Iterate pages; write raw per page; rewrite in big chunks
-    total = None
-    for pageno, text, total in extract_pdf_pages(path):
-        if text:
-            append_md(raw_md, f"\n\n## Page {pageno}\n\n{text}\n")
-        print(f"Progress: Page {pageno}/{total}")
-
-        if do_rewrite and text:
-            if chunk_start is None:
-                chunk_start = pageno
-            buf.append(text)
-
-            if len(buf) >= pages_per_chunk:
-                if used_requests >= MAX_REQUESTS_PER_RUN:
-                    print(f"Reached MAX_REQUESTS_PER_RUN={MAX_REQUESTS_PER_RUN}. Stopping rewrites.")
-                    buf = []
-                    chunk_start = None
-                else:
-                    _flush_chunk(buf, chunk_start, pageno, rew_md, temperature)
-                    used_requests += 1
-                    buf = []
-                    chunk_start = None
-                    time.sleep(PAUSE_BETWEEN_CALLS_SEC)
-
-    # Flush remainder
-    if do_rewrite and buf and chunk_start is not None and used_requests < MAX_REQUESTS_PER_RUN:
-        end_p = chunk_start + len(buf) - 1
-        _flush_chunk(buf, chunk_start, end_p, rew_md, temperature)
-        used_requests += 1
-
-    print("\nSaved:")
-    print(f"  {raw_md}")
-    if do_rewrite:
-        print(f"  {rew_md}")
-
-
-def _flush_chunk(buf: List[str], start_p: int, end_p: int, rew_md: str, temperature: float):
-    piece = "\n\n".join(buf).strip()
-    print(f"\nRewriting pages {start_p}–{end_p} ...")
     try:
-        rewritten = rewrite_with_gemini_retry(piece, temperature)
-        if not rewritten:
-            rewritten = "(empty response)"
-        append_md(rew_md, f"\n\n## Rewritten pages {start_p}–{end_p}\n\n{rewritten}\n")
-        print(f"Appended rewritten pages {start_p}–{end_p}")
+        resp = model.generate_content(
+            prompt,
+            generation_config={"temperature": TEMPERATURE},
+        )
+        return (resp.text or "").strip()
     except Exception as e:
-        append_md(rew_md, f"\n\n## Rewritten pages {start_p}–{end_p}\n\n[Rewrite failed: {e}]\n")
-        print(f"[rewrite failed] {e}")
+        # simple backoff on quotas/timeouts
+        wait_s = BACKOFF_BASE * attempt
+        msg = str(e)
+        m = re.search(r"retry_delay\s*{\s*seconds:\s*(\d+)", msg)
+        if m:
+            wait_s = max(wait_s, int(m.group(1)))
+        if attempt >= 3:
+            raise
+        print(f"[rewrite backoff] waiting {wait_s}s then retrying...")
+        time.sleep(wait_s)
+        return rewrite_chunk(model, text, attempt + 1)
 
 
-def process_simple_text_like(path: str, do_rewrite: bool, temperature: float, loader):
-    base = os.path.splitext(os.path.basename(path))[0]
-    out_dir = os.path.dirname(os.path.abspath(path))
-    raw_md = os.path.join(out_dir, f"{base}_raw.md")
-    rew_md = os.path.join(out_dir, f"{base}_rewritten.md")
+def rewrite_file(raw_md_path: str) -> str:
+    ensure_api_key()
 
-    save_header_once(raw_md, f"# Extracted Text ({base})")
-    if do_rewrite:
-        save_header_once(rew_md, f"# Rewritten Text ({base})")
+    base = os.path.basename(raw_md_path)
+    if not base.endswith("_raw.md"):
+        raise ValueError("Input must be a '*_raw.md' file")
+    out_path = raw_md_path[:-7] + "_rewritten.md"  # replace _raw.md
 
-    raw = normalize_text(loader(path))
-    append_md(raw_md, raw + "\n")
-    print(f"Saved raw to {raw_md}")
+    # Load and normalize the raw text
+    with open(raw_md_path, "r", encoding="utf-8") as f:
+        raw = normalize(f.read())
 
-    if do_rewrite:
-        try:
-            rewritten = rewrite_with_gemini_retry(raw, temperature)
-            append_md(rew_md, rewritten + "\n")
-            print(f"Saved rewritten to {rew_md}")
-        except Exception as e:
-            append_md(rew_md, f"[Rewrite failed: {e}]\n")
-            print(f"[rewrite failed] {e}")
+    # Pick a working model dynamically
+    model_name = pick_available_model()
+    print(f"Using model: {model_name}")
+    model = genai.GenerativeModel(model_name)
 
+    # Start output
+    with open(out_path, "w", encoding="utf-8") as out:
+        out.write(f"# Rewritten Text ({base[:-7]})\n\n")
 
-# ---------------- File picker + CLI-like options ----------------
-def pick_file():
-    root = tk.Tk()
-    root.withdraw()
-    path = filedialog.askopenfilename(
-        title="Select a PDF, DOCX, TXT, or Image",
-        filetypes=(
-            ("Supported files", "*.pdf;*.docx;*.txt;*.png;*.jpg;*.jpeg;*.tiff;*.bmp"),
-            ("All files", "*.*"),
-        ),
-    )
-    root.destroy()
-    return path
+    # Chunk + rewrite
+    idx = 1
+    for chunk in chunk_text(raw, MAX_CHARS):
+        print(f"Rewriting chunk {idx}...")
+        rewritten = rewrite_chunk(model, chunk)
+        with open(out_path, "a", encoding="utf-8") as out:
+            out.write(f"\n\n## Rewritten chunk {idx}\n\n{rewritten}\n")
+        idx += 1
 
-
-def main():
-    # “Args” as env/variables so you can tweak defaults without typing:
-    pages_per_chunk = int(os.environ.get("PAGES_PER_CHUNK", DEFAULT_PAGES_PER_CHUNK))
-    no_rewrite = os.environ.get("NO_REWRITE", "").lower() in ("1", "true", "yes")
-    temperature = float(os.environ.get("TEMPERATURE", DEFAULT_TEMPERATURE))
-
-    fpath = pick_file()
-    if not fpath:
-        print("No file selected.")
-        return
-    fpath = os.path.abspath(fpath)
-
-    ext = os.path.splitext(fpath)[1].lower()
-    do_rewrite = not no_rewrite
-
-    if ext == ".pdf":
-        process_pdf(fpath, pages_per_chunk=pages_per_chunk, do_rewrite=do_rewrite, temperature=temperature)
-    elif ext == ".docx":
-        process_simple_text_like(fpath, do_rewrite, temperature, extract_docx)
-    elif ext == ".txt":
-        process_simple_text_like(fpath, do_rewrite, temperature, extract_txt)
-    elif ext in (".png", ".jpg", ".jpeg", ".tiff", ".bmp"):
-        process_simple_text_like(fpath, do_rewrite, temperature, extract_image)
-    else:
-        raise ValueError(f"Unsupported file type: {ext}")
+    print(f"Saved rewritten: {out_path}")
+    return out_path
 
 
 if __name__ == "__main__":
-    main()
+    if len(sys.argv) >= 2:
+        in_path = sys.argv[1]
+    else:
+        raws = glob.glob("*_raw.md")
+        if not raws:
+            print("No *_raw.md found.")
+            sys.exit(1)
+        in_path = max(raws, key=os.path.getmtime)
+
+    rewrite_file(os.path.abspath(in_path))

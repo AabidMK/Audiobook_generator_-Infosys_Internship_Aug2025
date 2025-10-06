@@ -1,12 +1,11 @@
-# Rewritten Text (Salammbo)
+Rewritten Text (Salammbo)
 
 
+Rewritten pages 1–24
 
-## Rewritten pages 1–24
+Salammbô
 
-# Salammbô
-
-## Chapter 1: The Feast
+Chapter 1: The Feast
 
 The scene: Hamilcar's gardens in Megara, a Carthaginian suburb.  His Sicilian veterans feasted, celebrating the Eryx battle anniversary.  Their master absent, the numerous soldiers ate and drank freely.
 
