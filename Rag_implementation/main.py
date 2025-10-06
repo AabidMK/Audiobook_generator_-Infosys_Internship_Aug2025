@@ -3,11 +3,7 @@ import logging
 import time
 import sys
 from pathlib import Path
-from typing import Dict, Any
-
-# Add the Rag_implementation directory to the Python path
-sys.path.append(str(Path(__file__).parent))
-
+from typing import List, Dict, Any
 from src.document_parser import parse_dir, parse_file
 import os
 os.environ["CHROMA_DEFAULT_EMBEDDING_FUNCTION"] = "sentence-transformers/all-MiniLM-L6-v2"
@@ -19,10 +15,8 @@ from src.ollama_llm import OllamaLLMAnswerGenerator
 
 
 
-def index_documents(input_path,
-                    backend="chroma",
-                    model="sentence-transformers/all-MiniLM-L6-v2"):
-    """Index documents into Chroma with embeddings for similarity search."""
+def index_documents(input_path, backend="chroma", model="sentence-transformers/all-MiniLM-L6-v2"):
+    """Index documents into Chroma."""
     docs = []
     p = Path(input_path)
 
@@ -67,11 +61,8 @@ def index_documents(input_path,
 def query_docs(question: str,
                backend: str = "chroma",
                model: str = "sentence-transformers/all-MiniLM-L6-v2",
-               topk: int = 5,
-               llm_model: str = "gemma:1b") -> Dict[str, Any]:
-    """
-    Retrieve top-k similar chunks (cosine similarity) and generate an answer using Ollama.
-    """
+               topk: int = 5, llm_model: str = "gemma3:1b") -> Dict[str, Any]:
+    """Retrieve chunks and generate answer using Ollama."""
     try:
         # Embed the question
         embedder = EmbeddingManager(model_name=model)
