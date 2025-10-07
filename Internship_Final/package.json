@@ -1,0 +1,17 @@
+{
+  "name": "ai-audiobook-generator",
+  "version": "1.0.0",
+  "description": "Production-grade AI audiobook generator with RAG chatbot",
+  "scripts": {
+    "dev": "concurrently \"cd backend && python main.py\" \"cd frontend && npm start\"",
+    "backend": "cd backend && python main.py",
+    "frontend": "cd frontend && npm start",
+    "install-all": "cd backend && pip install -r requirements.txt && cd ../frontend && npm install"
+  },
+  "keywords": ["ai", "audiobook", "chatbot", "rag", "fastapi", "react"],
+  "author": "Senior Full-Stack Engineer",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

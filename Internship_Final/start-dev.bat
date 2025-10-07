@@ -1,0 +1,13 @@
+@echo off
+echo Starting AI Audiobook Generator Development Environment...
+echo.
+
+echo Starting Frontend Development Server...
+start "Frontend" cmd /k "cd frontend && npm start"
+
+echo.
+echo Development servers starting...
+echo Frontend: http://localhost:3000
+echo.
+echo Press any key to exit...
+pause > nul
