@@ -46,7 +46,7 @@ venv\Scripts\activate       # (Use `source venv/bin/activate` for Mac/Linux)
 pip install -r requirements.txt
 
 Run the backend:
-
+bash
 uvicorn app:app --reload
 
 💻 Frontend Setup
