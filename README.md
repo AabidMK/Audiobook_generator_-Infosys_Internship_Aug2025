@@ -42,8 +42,6 @@ Copy code
 ---
 
 ## ⚙️ Backend Setup
-
-### 
 1️⃣ Create and Activate Virtual Environment
 
 ```bash
@@ -80,7 +78,7 @@ Copy code
 uvicorn app:app --reload --port 8000
 Server runs at: http://127.0.0.1:8000
 
-💻 Frontend Setup
+## 💻 Frontend Setup
 1️⃣ Install Dependencies
 bash
 Copy code
