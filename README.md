@@ -43,7 +43,8 @@ Copy code
 
 ## ⚙️ Backend Setup
 
-### 1️⃣ Create and Activate Virtual Environment
+### 
+1️⃣ Create and Activate Virtual Environment
 
 ```bash
 cd backend
