@@ -38,9 +38,8 @@ rag-document-ai/
 
 ## ⚙️ Setup Instructions
 
-### 🔧 Backend Setup
-
 ```bash
+🔧 Backend Setup
 cd backend
 python -m venv venv
 venv\Scripts\activate       # (Use `source venv/bin/activate` for Mac/Linux)
