@@ -19,7 +19,7 @@ except ImportError:
     print("⚠️  Edge-TTS not installed (pip install edge-tts) – audio disabled")
 
 try:
-    from rag_system import CompleteRAGSystemWithGroq
+    from rag_system import Phase2RAGSystem
     RAG_AVAILABLE = True
     print("✅ RAG system with Groq detected – Q&A ready")
 except ImportError:
@@ -80,7 +80,10 @@ class CompleteAudiobookPipeline:
             # Initialize RAG system
             if self.enable_rag:
                 print("🧠 Loading RAG system with Groq...")
-                self.rag_system = CompleteRAGSystemWithGroq()
+                self.rag_system = Phase2RAGSystem(
+    groq_api_key="",
+    groq_model="mixtral-8x7b-32768"
+)
                 self.stats["components"]["rag_system"] = "ready"
                 print("✅ RAG system ready")
             
@@ -505,4 +508,3 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"\n❌ Fatal error: {e}")
         traceback.print_exc()
-
