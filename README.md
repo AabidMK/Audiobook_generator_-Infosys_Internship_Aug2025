@@ -14,29 +14,46 @@ It combines:
 
 rag-document-ai/
 │
+
 ├── backend/ # FastAPI backend server
+
 │ ├── app.py # Main backend entry point
+
 │ ├── requirements.txt # Backend dependencies
+
 │ ├── rag_utils.py # RAG setup and vector store logic
+
 │ ├── tts_conversion.py # Text-to-speech conversion
+
 │ ├── text_extractor.py # Document text extraction
+
 │ └── temp_files/ # Uploaded files
 │
+
 ├── frontend/ # React frontend
+
 │ ├── src/
+
 │ │ ├── App.jsx # Main React component
+
 │ │ ├── reflection.css # Styling with reflection & ripple
 │ │ └── ...
+
 │ ├── package.json
+
 │ └── vite.config.js
+
 │
 ├── .gitignore # Ignored files
+
 └── README.md # Project documentation
 
 
 ---
 
 ## ⚙️ Setup Instructions
+
+### 🔧 Backend Setup
 
 ```bash
 🔧 Backend Setup
@@ -47,18 +64,22 @@ pip install -r requirements.txt
 
 Run the backend:
 uvicorn app:app --reload
+```
 
-💻 Frontend Setup
+### 💻 Frontend Setup
+```bash
 cd frontend
 npm install
 npm run dev
+```
 
-🔁 Run Both Together (Using Concurrently)
+### 🔁 Run Both Together (Using Concurrently)
 
 From the project root (rag-document-ai):
-
+```bash
 npm install concurrently
 npm run dev
+```
 
 
 ✅ The frontend and backend will run together automatically:
@@ -67,16 +88,21 @@ Frontend → http://localhost:5173
 
 Backend → http://127.0.0.1:8000
 
-🧩 Features
+### 🧩 Features
 
 ✅ Upload and parse PDF / DOCX / TXT files
+
 ✅ Get instant context-aware Q&A using LangChain + Ollama
+
 ✅ Generate Audiobook from text using Google TTS
+
 ✅ Interactive UI with reflection effects
+
 ✅ Concurrent Frontend + Backend integration
+
 ✅ Clean, modular architecture
 
-🚀 GitHub & Deployment Guide
+### 🚀 GitHub & Deployment Guide
 
 If you are working on your branch (e.g., saipavan), follow these steps to safely update your code on GitHub.
 
@@ -135,15 +161,17 @@ unstructured package not found
 
 
 Run:
-
+```
 pip install "unstructured[all-docs]"
+```
 
-🧑‍💻 Contributor
+## 🧑‍💻 Contributor
 
-Sai Pavan — RAG pipeline & backend integration
+### Sai Pavan — RAG pipeline & backend integration
 
-🏁 License
+## 🏁 License
 All rights reserved © 2025.
+
 
 
 
