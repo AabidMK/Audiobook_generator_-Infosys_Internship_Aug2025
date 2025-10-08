@@ -138,7 +138,7 @@ Run:
 
 pip install "unstructured[all-docs]"
 
-🧑‍💻 Contributors
+🧑‍💻 Contributor
 
 Sai Pavan — RAG pipeline & backend integration
 
