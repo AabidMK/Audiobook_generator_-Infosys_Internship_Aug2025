@@ -42,9 +42,9 @@ Copy code
 ---
 
 ## ⚙️ Backend Setup
+```bash
 1️⃣ Create and Activate Virtual Environment
 
-```bash
 cd backend
 python -m venv venv
 venv\Scripts\activate      # (Windows)
@@ -80,7 +80,7 @@ Server runs at: http://127.0.0.1:8000
 
 ## 💻 Frontend Setup
 1️⃣ Install Dependencies
-bash
+``bash
 Copy code
 cd frontend
 npm install
