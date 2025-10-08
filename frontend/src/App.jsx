@@ -229,7 +229,7 @@ function App() {
           <div className="grid md:grid-cols-2 gap-12">
             {/* Ask */}
             <div className="reflection-card bg-[#10172a] p-6 rounded-2xl shadow-lg transform transition-all duration-300 hover:scale-105">
-              <h3 className="text-lg font-semibold mb-2">💬 Ask Questions</h3>
+              <h3 className="text-lg font-semibold mb-2">💬 Ask Questions By RAG Model</h3>
               <input
                 type="text"
                 value={question}
