@@ -164,7 +164,7 @@ Run:
 ```
 pip install "unstructured[all-docs]"
 ```
-Deployed -> https://rag-document-ai-assistant.vercel.app/
+
 
 ## 🧑‍💻 Contributor
 
