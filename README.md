@@ -144,11 +144,7 @@ pip install "unstructured[all-docs]"
 
 Sai Pavan — RAG pipeline & backend integration
 
-Aabid M K — Repository owner & deployment support
-
 🏁 License
-
-This project is developed for Infosys Internship 2025.
 All rights reserved © 2025.
 
 
