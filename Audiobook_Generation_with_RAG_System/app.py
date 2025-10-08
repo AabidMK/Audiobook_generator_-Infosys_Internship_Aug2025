@@ -19,7 +19,7 @@ st.set_page_config(
 try:
     from enhanced_extraction import EnhancedTextExtraction
     from audiobook_generator import StateOfTheArtAudiobookGenerator
-    from rag_system import SimpleRAGSystem
+    from rag_system import Phase2RAGSystem
     COMPONENTS_AVAILABLE = True
 except ImportError as e:
     st.error(f"Missing components: {e}")
@@ -40,7 +40,10 @@ async def initialize_components():
         with st.spinner("🔄 Initializing AI components..."):
             try:
                 st.session_state.pipeline = StateOfTheArtAudiobookGenerator(local_only=False)
-                st.session_state.rag_system = SimpleRAGSystem()
+                st.session_state.rag_system = Phase2RAGSystem(
+    groq_api_key="",
+    groq_model="mixtral-8x7b-32768"
+)
                 st.success("✅ Components initialized successfully!")
                 return True
             except Exception as e:
@@ -280,7 +283,7 @@ def main():
             stats = st.session_state.rag_system.get_knowledge_base_stats_complete()
             
             if stats.get('ready_for_qa', False):
-                st.success(f"📚 Knowledge base ready with {stats['total_documents']} documents")
+                st.success(f"📚 Knowledge base ready with {stats['total_chunks']} chunks")
                 
                 question = st.text_input(
                     "❓ Ask a question about your documents:",
