@@ -1,0 +1,12 @@
+python-dotenv>=1.0.0
+chromadb>=0.4.0,<0.6.0
+sentence-transformers>=2.2.2
+pdfplumber
+google-generativeai>=0.3.0
+torch>=2.0.0,<2.6.0
+TTS>=0.22.0
+huggingface-hub==0.19.4
+python-docx>=1.0.0
+pillow>=10.0.0
+pytesseract>=0.3.10
+onnxruntime
