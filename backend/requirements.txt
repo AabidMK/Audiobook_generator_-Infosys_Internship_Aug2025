@@ -1,0 +1,38 @@
+# ==============================================================================
+# AI Audiobook Generator Backend Dependencies
+# Install with: pip install -r requirements.txt
+# ==============================================================================
+
+# --- 1. Core Web Framework ---
+# FastAPI for building the API endpoints
+fastapi
+# Uvicorn to run the FastAPI application server
+# [standard] includes dependencies like httptools, python-dotenv, etc.
+uvicorn[standard] 
+# Required for handling file uploads (multipart/form-data) in FastAPI
+python-multipart 
+
+# --- 2. RAG (Retrieval-Augmented Generation) Components ---
+# Google GenAI SDK for the Gemini model API calls
+google-genai 
+
+# Vector Store/Database
+# ChromaDB for storing and querying vector embeddings
+chromadb
+
+# Embeddings Model
+# Sentence-Transformers for generating local embeddings (all-MiniLM-L6-v2)
+sentence-transformers 
+
+# PDF Handling
+# PyMuPDF (fitz) for reliable PDF text extraction
+PyMuPDF 
+
+# --- 3. Text-to-Speech (TTS) Component ---
+# Google Cloud Text-to-Speech API client library
+# NOTE: This requires separate Google Cloud authentication (gcloud auth application-default login)
+google-cloud-texttospeech 
+
+# --- 4. Utilities ---
+# A common dependency for many Python web/data projects
+textwrap
