@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 📚 AI Audiobook Generator with RAG
 
 A professional-grade audiobook generation system with Retrieval-Augmented Generation (RAG) for intelligent question-answering about your documents.
@@ -256,3 +257,13 @@ For issues and questions:
 ---
 
 **Made with ❤️ for Infosys Internship Aug 2025**
+=======
+### AudioBook Generator 
+
+AudioBook Generator is a web application that allows users to upload one or more text 
+documents (PDF, DOCX, TXT) and automatically converts them into high-quality 
+audiobooks. The application leverages Large Language Models (LLMs) to rewrite extracted 
+text in an engaging, listener-friendly “audiobook style” before using open-source Text-to
+Speech (TTS) technology to produce downloadable audio files. This project enhances 
+accessibility, productivity, and the enjoyment of written content. 
+>>>>>>> 7508fd7f3204606fd8e9396d1b9d8870ceb8a5a4

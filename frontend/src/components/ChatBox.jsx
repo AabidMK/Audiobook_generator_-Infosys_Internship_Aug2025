@@ -1,11 +1,16 @@
 // src/components/ChatBox.jsx
+<<<<<<< HEAD
 import React, { useState, useRef, useEffect } from "react";
+=======
+import React, { useState } from "react";
+>>>>>>> 7508fd7f3204606fd8e9396d1b9d8870ceb8a5a4
 import api from "../api";
 
 export default function ChatBox({ initialAnswer }) {
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState(() => initialAnswer ? [{role:"assistant", text: initialAnswer}] : []);
   const [loading, setLoading] = useState(false);
+<<<<<<< HEAD
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -35,12 +40,28 @@ export default function ChatBox({ initialAnswer }) {
     } catch (err) {
       console.error(err);
       setMessages((m) => [...m, { role: "assistant", text: "Error fetching answer. Please try again." }]);
+=======
+
+  async function ask() {
+    if (!question) return;
+    setLoading(true);
+    setMessages((m) => [...m, {role: "user", text: question}]);
+    try {
+      const resp = await api.post("/rag-query/", new URLSearchParams({ question, collection: "audiobook_chunks" }));
+      const { answer, citations } = resp.data;
+      setMessages((m) => [...m, {role: "assistant", text: answer}, {role:"meta", text: citations.join("\n")}]);
+      setQuestion("");
+    } catch (err) {
+      console.error(err);
+      setMessages((m) => [...m, { role: "assistant", text: "Error fetching answer." }]);
+>>>>>>> 7508fd7f3204606fd8e9396d1b9d8870ceb8a5a4
     } finally {
       setLoading(false);
     }
   }
 
   return (
+<<<<<<< HEAD
     <div style={{ display: "flex", flexDirection: "column", height: "500px" }}>
       {/* Messages Area */}
       <div style={{
@@ -246,6 +267,33 @@ export default function ChatBox({ initialAnswer }) {
           40% { transform: scale(1); }
         }
       `}</style>
+=======
+    <div style={{ borderRadius: 12, background: "#414141ff", padding: 16, display: "flex", flexDirection: "column", gap: 12 }}>
+      <div style={{ minHeight: 200, maxHeight: 360, overflowY: "auto", display: "flex", flexDirection: "column", gap: 8 }}>
+        {messages.map((m, i) => (
+          <div key={i} style={{
+            background: m.role === "user" ? "#646463ff" : (m.role==="assistant" ? "#bbdefb" : "#fff"),
+            padding: 10,
+            borderRadius: 8
+          }}>
+            <strong style={{ display:"block", fontSize:12, color:"#333" }}>{m.role}</strong>
+            <div style={{ whiteSpace: "pre-wrap", marginTop: 4 }}>{m.text}</div>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ display: "flex", gap: 8 }}>
+        <input
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+          placeholder="Ask a follow-up question..."
+          style={{ flex: 1, padding: 8, borderRadius: 6, border: "1px solid #0288d1" }}
+        />
+        <button onClick={ask} disabled={loading} style={{ padding: "6px 12px", borderRadius: 6, background: "#0288d1", color: "#ffffff", border: "none" }}>
+          {loading ? "..." : "Ask"}
+        </button>
+      </div>
+>>>>>>> 7508fd7f3204606fd8e9396d1b9d8870ceb8a5a4
     </div>
   );
 }

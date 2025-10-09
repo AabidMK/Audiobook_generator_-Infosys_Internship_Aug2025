@@ -2,6 +2,7 @@
 import React from "react";
 
 export default function AudioPlayer({ audioUrl }) {
+<<<<<<< HEAD
   if (!audioUrl) {
     return (
       <div style={{
@@ -119,6 +120,16 @@ export default function AudioPlayer({ audioUrl }) {
         </svg>
         Download Audiobook
       </a>
+=======
+  if (!audioUrl) return <div style={{ color: "#555" }}>No audio yet. Upload your document and generate.</div>;
+
+  return (
+    <div style={{ borderRadius: 12, background: "#fffde7", padding: 16, boxShadow: "0 2px 8px rgba(0,0,0,0.05)" }}>
+      <audio controls src={audioUrl} style={{ width: "100%" }} />
+      <div style={{ marginTop: 10 }}>
+        <a href={audioUrl} download style={{ color: "#f57f17", fontWeight: 500 }}>⬇️ Download audio</a>
+      </div>
+>>>>>>> 7508fd7f3204606fd8e9396d1b9d8870ceb8a5a4
     </div>
   );
 }
