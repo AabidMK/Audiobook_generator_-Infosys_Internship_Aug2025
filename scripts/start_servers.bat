@@ -1,0 +1,19 @@
+@echo off
+echo Starting AI AudioBook Generator Servers...
+
+echo Starting Backend Server on port 8080...
+start "Backend Server" cmd /k "python server.py serve --port 8080"
+
+echo Waiting for backend to start...
+timeout /t 5 /nobreak >nul
+
+echo Starting Frontend Server on port 5173...
+cd frontend
+start "Frontend Server" cmd /k "npm run dev"
+
+echo Both servers are starting...
+echo Backend: http://localhost:8080
+echo Frontend: http://localhost:5173
+echo.
+echo Press any key to exit...
+pause >nul
