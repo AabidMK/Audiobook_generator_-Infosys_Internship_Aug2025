@@ -1,0 +1,8 @@
+torch
+transformers
+chromadb
+TTS @ git+https://github.com/coqui-ai/TTS.git
+pyyaml
+openai
+pdfplumber
+python-docx

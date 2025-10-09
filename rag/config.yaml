@@ -1,0 +1,11 @@
+tts:
+  model_name: "tts_models/en/ljspeech/tacotron2-DDC"   # Example Coqui TTS model
+  use_gpu: false
+
+embedding:
+  model_name: "google/embeddinggemma-300m"
+  device: "mps"   # or "cuda" / "cpu"
+
+vector_store:
+  persist_dir: "./chromadb_store"
+  collection_name: "documents"
