@@ -98,33 +98,6 @@ The Preview Panel will let you play or download your MP3.
 Use the RAG Q&A box to ask context-based questions about the uploaded document.
 
 
-###  Project Folder Structure
-
-Audiobook/
-│
-├── app.py                     # FastAPI app (main API)
-├── text_extraction_gemini.py  # Gemini rewrite logic
-├── rag_ingest.py              # Manual ingestion utility
-├── rag_query.py               # RAG Q&A test script
-├── uploads/                   # Temporary output files
-├── vector_db/                 # Chroma vector database
-├── data/audiobooks.json       # Audiobook catalog
-├── audiobook-web/             # React + Vite frontend
-│   ├── src/
-│   ├── public/
-│   ├── package.json
-│   └── vite.config.js
-├── requirements-rag.txt       # Backend dependencies
-├── README.md                  # You are here
-└── .env                       # Environment variables
- Common Issues & Fixes
-Problem	Solution
-TTS failed	Try another voice like en-US-JennyNeural
-No text detected	Check OCR quality / use clear images
-Processing stuck	Check FastAPI logs for Gemini or TTS errors
-ChromaDB error	Delete vector_db/ and restart backend
-Image not selectable	Refresh browser; accept="image/*" now supported
-
 
 ### Run:
 
