@@ -1,0 +1,48 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.dist-info/
+.venv/
+venv/
+.env
+*.sqlite3
+*.db
+
+# --- App Runtime Data ---
+uploads/
+data/audiobooks.json
+vector_db/
+chroma.sqlite3
+
+# --- Logs & Temp Files ---
+*.log
+*.tmp
+*.bak
+Thumbs.db
+.DS_Store
+
+# --- HuggingFace / EasyOCR Cache ---
+.cache/
+huggingface/
+easyocr/
+easyocr_cache/
+*.pth
+
+# --- Node / Frontend ---
+audiobook-web/node_modules/
+audiobook-web/.vite/
+audiobook-web/dist/
+audiobook-web/.env.local
+audiobook-web/.env*.local
+audiobook-web/npm-debug.log*
+audiobook-web/yarn-debug.log*
+audiobook-web/yarn-error.log*
+audiobook-web/pnpm-debug.log*
+
+# --- VSCode / IDE ---
+.vscode/
+.idea/
