@@ -13,10 +13,9 @@ Built with *Streamlit, **Edge-TTS, and **Transformers*, this app provides an eas
 -  Intelligent memory using RAG (Retrieval-Augmented Generation)  
 -  Simple, interactive Streamlit UI
 
-----
+---
 ##  Installation
-1. Clone the repository:
-```bash
+1. Clone the repository : ```bash
 git clone https://github.com/your-username/your-repo.git
 cd your-repo
 
