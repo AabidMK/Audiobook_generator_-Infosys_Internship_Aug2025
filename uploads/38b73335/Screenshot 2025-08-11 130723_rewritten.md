@@ -1,0 +1,7 @@
+Logging middleware is a critical component for building robust and observable applications. While error logging is essential, we expect you to implement logging that captures the entire lifecycle of significant events. This includes successful operations, warnings, informational messages, and debugging details. Think of these logs as the narrative of your application's execution. They are crucial for understanding application behavior, performance, and for effective debugging.
+
+You have flexibility in choosing your backend language or framework. However, the logging middleware itself must be a reusable package. If you are attempting the Full Stack track, both this middleware and your backend application must be developed in TypeScript or JavaScript. This ensures the logging package can be consumed by the frontend.
+
+Develop a reusable function that makes an API call to the Test Server each time it's invoked. This function should match the following structure: `Log(stack, level, package, message)`.
+
+Integrate this reusable `Log` function strategically throughout your codebase. Each `Log` call should provide specific and descriptive context about what's happening. Instead of generic messages, aim for logs that clearly communicate the state, actions, and any relevant data at that point in the code.

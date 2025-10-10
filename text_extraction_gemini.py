@@ -13,24 +13,28 @@ load_dotenv()  # expects a .env with GOOGLE_API_KEY=...
 TEMPERATURE = 0.4
 MAX_CHARS = 12000            # per-request chunk size
 BACKOFF_BASE = 6             # seconds for simple backoff
+MAX_RETRIES = 3
 
-# If you want to bias toward a model, put it first here; the code
-# will still verify availability via list_models().
+# Try these in order; we’ll verify availability via list_models()
 PREFERRED_MODELS = [
+    "gemini-2.5-flash",
+    "gemini-flash-latest",
+    "gemini-2.0-flash",
     "gemini-1.5-flash-8b",
     "gemini-1.5-flash-latest",
-    "gemini-1.5-flash",
     "gemini-1.5-pro",
-    "gemini-2.0-flash-lite-preview-02-05",  # sometimes available for free tier
+    "gemini-2.0-flash-lite-preview-02-05",
 ]
 
+# Strictly ask for plain paragraphs only
 REWRITE_PROMPT = (
-    "Rewrite the following text for clear, engaging narration suitable for an audiobook listener. "
-    "Keep factual content, do not invent details, improve flow and coherence, use concise sentences, "
-    "and keep or enhance Markdown headings and bullet lists where helpful. "
-    "Normalize spacing and punctuation. Return only the rewritten text."
+    "Rewrite the text for clear, engaging audiobook narration. "
+    "Keep factual content, improve flow and coherence, use concise sentences. "
+    "Output PLAIN PARAGRAPHS ONLY. "
+    "Do NOT add headings, lists, bullets, numbering, hashtags, code fences, or any labels. "
+    "Do NOT write phrases like 'rewritten text' or 'chunk'. "
+    "Preserve paragraph breaks but otherwise just return the narrative as clean text."
 )
-
 
 # ---------------- Helpers ----------------
 def ensure_api_key():
@@ -40,9 +44,7 @@ def ensure_api_key():
             "GOOGLE_API_KEY not found. Create a .env file with:\n"
             "GOOGLE_API_KEY=your_key_here"
         )
-    # Configure the SDK (defaults to v1 API in recent versions)
     genai.configure(api_key=api_key)
-
 
 def normalize(s: str) -> str:
     s = s.replace("\u00A0", " ")
@@ -51,19 +53,16 @@ def normalize(s: str) -> str:
     s = re.sub(r"\n{3,}", "\n\n", s)
     return s.strip()
 
-
 def chunk_text(s: str, max_chars: int):
     s = s.strip()
     start = 0
     while start < len(s):
         end = min(start + max_chars, len(s))
-        # Prefer to cut on a paragraph boundary if possible
-        cut = s.rfind("\n\n", start, end)
+        cut = s.rfind("\n\n", start, end)  # prefer to cut at paragraph boundary
         if cut == -1 or cut <= start + 1000:
             cut = end
         yield s[start:cut]
         start = cut
-
 
 def pick_available_model():
     """
@@ -74,30 +73,53 @@ def pick_available_model():
         available = genai.list_models()
         names = []
         for m in available:
-            # m.name is like "models/gemini-1.5-flash-8b"
             short = m.name.split("/")[-1]
             if "generateContent" in getattr(m, "supported_generation_methods", []):
                 names.append(short)
 
-        # Prefer one from our preferred list
         for cand in PREFERRED_MODELS:
             if cand in names:
                 return cand
 
-        # Otherwise, take any that supports generateContent
         if names:
             print("No preferred model found; using:", names[0])
             return names[0]
 
-        # As a last resort, try a commonly-available short name
-        print("No listable models found; attempting gemini-1.5-flash-8b")
-        return "gemini-1.5-flash-8b"
+        print("No listable models found; attempting gemini-2.5-flash")
+        return "gemini-2.5-flash"
 
     except Exception as e:
-        # If list_models fails (permissions, network), try a sane default
-        print(f"Model listing failed ({e}); attempting gemini-1.5-flash-8b")
-        return "gemini-1.5-flash-8b"
+        print(f"Model listing failed ({e}); attempting gemini-2.5-flash")
+        return "gemini-2.5-flash"
 
+def strip_markup(text: str) -> str:
+    """
+    Remove accidental headings, bullets, numbered lists, hashtags, code fences, and labels.
+    Keep paragraph breaks. Normalize to at most double newlines.
+    """
+    lines = text.splitlines()
+    cleaned = []
+    for ln in lines:
+        l = ln.strip()
+
+        # Ignore code fences entirely
+        if l.startswith("```"):
+            continue
+
+        # Remove typical headers, bullets, numbered prefixes, hashtags
+        l = re.sub(r"^\s*#+\s*", "", l)                   # markdown headers
+        l = re.sub(r"^\s*[-*•·]\s+", "", l)               # bullets
+        l = re.sub(r"^\s*\d+[\.\)\-]\s+", "", l)          # numbered bullets (1., 1), 1-)
+        l = re.sub(r"^\s*#\s*", "", l)                    # leading hashtag marker
+        l = re.sub(r"^\s*rewritten\s*chunk.*$", "", l, flags=re.IGNORECASE)
+        l = re.sub(r"^\s*chunk\s*\d+.*$", "", l, flags=re.IGNORECASE)
+        l = re.sub(r"^\s*rewritten\s*text.*$", "", l, flags=re.IGNORECASE)
+
+        cleaned.append(l)
+
+    text2 = "\n".join(cleaned)
+    text2 = re.sub(r"\n{3,}", "\n\n", text2).strip()
+    return text2
 
 def rewrite_chunk(model, text: str, attempt: int = 1) -> str:
     prompt = f"{REWRITE_PROMPT}\n\n---\n{text}"
@@ -106,22 +128,27 @@ def rewrite_chunk(model, text: str, attempt: int = 1) -> str:
             prompt,
             generation_config={"temperature": TEMPERATURE},
         )
-        return (resp.text or "").strip()
+        raw = (resp.text or "").strip()
+        return strip_markup(raw)
     except Exception as e:
-        # simple backoff on quotas/timeouts
         wait_s = BACKOFF_BASE * attempt
         msg = str(e)
         m = re.search(r"retry_delay\s*{\s*seconds:\s*(\d+)", msg)
         if m:
             wait_s = max(wait_s, int(m.group(1)))
-        if attempt >= 3:
+        if attempt >= MAX_RETRIES:
             raise
         print(f"[rewrite backoff] waiting {wait_s}s then retrying...")
         time.sleep(wait_s)
         return rewrite_chunk(model, text, attempt + 1)
 
-
+# ---------------- Main entry ----------------
 def rewrite_file(raw_md_path: str) -> str:
+    """
+    Input:  <base>_raw.md
+    Output: <base>_rewritten.md
+    Writes plain paragraphs only (no headers, bullets, chunk labels).
+    """
     ensure_api_key()
 
     base = os.path.basename(raw_md_path)
@@ -129,31 +156,35 @@ def rewrite_file(raw_md_path: str) -> str:
         raise ValueError("Input must be a '*_raw.md' file")
     out_path = raw_md_path[:-7] + "_rewritten.md"  # replace _raw.md
 
-    # Load and normalize the raw text
     with open(raw_md_path, "r", encoding="utf-8") as f:
         raw = normalize(f.read())
 
-    # Pick a working model dynamically
     model_name = pick_available_model()
     print(f"Using model: {model_name}")
     model = genai.GenerativeModel(model_name)
 
-    # Start output
-    with open(out_path, "w", encoding="utf-8") as out:
-        out.write(f"# Rewritten Text ({base[:-7]})\n\n")
+    # Start with an empty file; we do not reveal it's rewritten
+    open(out_path, "w", encoding="utf-8").close()
 
-    # Chunk + rewrite
     idx = 1
     for chunk in chunk_text(raw, MAX_CHARS):
         print(f"Rewriting chunk {idx}...")
         rewritten = rewrite_chunk(model, chunk)
-        with open(out_path, "a", encoding="utf-8") as out:
-            out.write(f"\n\n## Rewritten chunk {idx}\n\n{rewritten}\n")
+        if rewritten:
+            with open(out_path, "a", encoding="utf-8") as out:
+                if os.path.getsize(out_path) > 0:
+                    out.write("\n\n")  # keep paragraph spacing between chunks
+                out.write(rewritten)
         idx += 1
+
+    # Final sanitize pass on full output
+    with open(out_path, "r", encoding="utf-8") as f:
+        final_text = strip_markup(f.read())
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(final_text)
 
     print(f"Saved rewritten: {out_path}")
     return out_path
-
 
 if __name__ == "__main__":
     if len(sys.argv) >= 2:

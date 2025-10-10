@@ -32,6 +32,22 @@ try:
 except Exception:
     edge_tts = None
 
+# Optional: PyMuPDF for scanned-PDF OCR fallback
+try:
+    import fitz  # PyMuPDF
+    from PIL import Image
+    HAS_PYMUPDF = True
+except Exception:
+    HAS_PYMUPDF = False
+
+# EasyOCR (required for image OCR)
+try:
+    import easyocr
+    _EASYOCR_READER = easyocr.Reader(["en"], gpu=False)
+except Exception as e:
+    _EASYOCR_READER = None
+
+
 # ------------------------- Config -------------------------
 PERSIST_PATH    = os.getenv("CHROMA_PATH", "vector_db")
 COLLECTION_NAME = os.getenv("CHROMA_COLLECTION", "audiobook_chunks")
@@ -47,6 +63,14 @@ MAX_CONTEXT_TOKENS = 6000
 
 VOICE = os.getenv("EDGE_TTS_VOICE", "en-GB-SoniaNeural")
 RATE  = os.getenv("EDGE_TTS_RATE", "-10%")
+
+PREFERRED_GEMINI = [
+    "gemini-2.5-flash",
+    "gemini-flash-latest",
+    "gemini-2.0-flash",
+    "gemini-pro-latest",
+]
+
 
 # ------------------------- App -------------------------
 app = FastAPI(title="Audiobook Pipeline API")
@@ -74,13 +98,55 @@ def _save_catalog(d):
     with open(CATALOG_PATH, "w", encoding="utf-8") as f: json.dump(d, f, indent=2)
 _catalog = _load_catalog()
 
-# ---------------- Helpers: extractors ----------------
-def _extract_pdf(path: str) -> str:
-    out = []
+
+# ---------------- OCR helpers (EasyOCR only) ----------------
+def _require_easyocr():
+    if _EASYOCR_READER is None:
+        raise HTTPException(
+            status_code=500,
+            detail="easyocr is not installed. Run: pip install easyocr pillow"
+        )
+
+def _ocr_image_pil(pil_img: "Image.Image") -> str:
+    _require_easyocr()
+    import numpy as np
+    arr = np.array(pil_img.convert("RGB"))
+    lines = _EASYOCR_READER.readtext(arr, detail=0)
+    return "\n".join(lines).strip()
+
+
+# ---------------- Extractors ----------------
+def _extract_pdf(path: str, ocr_fallback: bool = True, ocr_min_chars: int = 20) -> str:
+    """
+    Extract text from a PDF using pdfplumber.
+    If a page has too little text (likely scanned), and PyMuPDF is available,
+    render page to image and OCR it with EasyOCR.
+    """
+    parts = []
     with pdfplumber.open(path) as pdf:
-        for p in pdf.pages:
-            out.append(p.extract_text() or "")
-    return "\n".join(out).strip()
+        total = len(pdf.pages)
+        for i, page in enumerate(pdf.pages, start=1):
+            page_text = (page.extract_text() or "").strip()
+            if ocr_fallback and len(page_text) < ocr_min_chars and HAS_PYMUPDF:
+                # OCR this page
+                ocr_txt = _ocr_pdf_page(path, i)
+                if ocr_txt.strip():
+                    page_text = ocr_txt.strip()
+            parts.append(f"\n\n## Page {i}\n\n{page_text}" if page_text else f"\n\n## Page {i}\n\n")
+    return ("\n".join(parts)).strip()
+
+def _ocr_pdf_page(pdf_path: str, page_number_1based: int, zoom: float = 2.0) -> str:
+    if not HAS_PYMUPDF:
+        return ""
+    doc = fitz.open(pdf_path)
+    try:
+        page = doc[page_number_1based - 1]
+        mat = fitz.Matrix(zoom, zoom)
+        pix = page.get_pixmap(matrix=mat, alpha=False)
+        img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+        return _ocr_image_pil(img)
+    finally:
+        doc.close()
 
 def _extract_docx(path: str) -> str:
     d = docx.Document(path)
@@ -91,42 +157,12 @@ def _extract_txt(path: str) -> str:
 
 def _extract_image(path: str) -> str:
     """
-    OCR for images. Tries pytesseract+Pillow first (requires Tesseract binary),
-    falls back to easyocr if available.
+    EasyOCR only for images (PNG/JPG/JPEG/TIFF/BMP).
     """
-    # Try pytesseract + Pillow
-    try:
-        import pytesseract
-        from PIL import Image
-        text = pytesseract.image_to_string(Image.open(path))
-        text = text.strip()
-        if text:
-            return text
-    except Exception as e:
-        # keep e for fallback message
-        pytess_err = str(e)
-    else:
-        pytess_err = ""
-
-    # Fallback to easyocr
-    try:
-        import easyocr
-        reader = easyocr.Reader(["en"])
-        lines = reader.readtext(path, detail=0)
-        text = "\n".join(lines).strip()
-        if text:
-            return text
-    except Exception as e2:
-        raise HTTPException(
-            status_code=500,
-            detail=(
-                "Image OCR failed. Install either Tesseract (for pytesseract) or easyocr. "
-                f"pytesseract error: {pytess_err}; easyocr error: {e2}"
-            ),
-        )
-
-    # If both produced empty text
-    raise HTTPException(status_code=400, detail="No text detected in the image.")
+    _require_easyocr()
+    from PIL import Image as _PILImage
+    img = _PILImage.open(path)
+    return _ocr_image_pil(img)
 
 def extract_text_to_named_raw_md(src_path: str) -> str:
     """
@@ -139,7 +175,7 @@ def extract_text_to_named_raw_md(src_path: str) -> str:
     raw_md_path = os.path.join(out_dir, f"{base}_raw.md")
 
     if ext == ".pdf":
-        text = _extract_pdf(src_path)
+        text = _extract_pdf(src_path, ocr_fallback=True, ocr_min_chars=20)
     elif ext == ".docx":
         text = _extract_docx(src_path)
     elif ext in [".txt", ".md"]:
@@ -155,8 +191,11 @@ def extract_text_to_named_raw_md(src_path: str) -> str:
     with open(raw_md_path, "w", encoding="utf-8") as f:
         f.write(f"# Extracted Text ({os.path.basename(src_path)})\n\n")
         f.write(text)
+        if not text.endswith("\n"):
+            f.write("\n")
 
     return raw_md_path
+
 
 # ---------------- Helpers: RAG + TTS ----------------
 def chunk_text(text: str, chunk_words: int = 500) -> List[str]:
@@ -205,6 +244,33 @@ async def edge_tts_from_markdown(md_path: str) -> str:
         raise RuntimeError("Edge TTS did not create an MP3 file.")
     return mp3_path
 
+
+# ---------------- Gemini helpers ----------------
+def _pick_gemini_model(preferred=PREFERRED_GEMINI) -> str:
+    api_key = os.getenv("GOOGLE_API_KEY", "").strip()
+    if not api_key:
+        raise HTTPException(status_code=500, detail="GOOGLE_API_KEY is not set.")
+    import google.generativeai as genai
+    genai.configure(api_key=api_key)
+
+    try:
+        available = [
+            m.name.split("/")[-1]
+            for m in genai.list_models()
+            if "generateContent" in getattr(m, "supported_generation_methods", [])
+        ]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Gemini list_models failed: {e}")
+
+    for cand in preferred:
+        if cand in available:
+            return cand
+    # last resort
+    if available:
+        return available[0]
+    raise HTTPException(status_code=500, detail="No suitable Gemini model available for generateContent.")
+
+
 # ---------------- Schemas ----------------
 class UploadResponse(BaseModel):
     id: str
@@ -219,6 +285,7 @@ class AskRequest(BaseModel):
 class AskResponse(BaseModel):
     answer: str
     citations: List[dict]
+
 
 # ---------------- Routes ----------------
 @app.post("/pipeline/ingest", response_model=UploadResponse)
@@ -325,7 +392,8 @@ def rag_ask(req: AskRequest):
         import google.generativeai as genai
         genai.configure(api_key=api_key)
         try:
-            model = genai.GenerativeModel("gemini-2.5-flash")
+            model_name = _pick_gemini_model()
+            model = genai.GenerativeModel(model_name)
             resp = model.generate_content(prompt, generation_config={"temperature": 0.2})
             answer = (getattr(resp, "text", "") or "").strip()
         except Exception:
@@ -343,3 +411,9 @@ def rag_ask(req: AskRequest):
             "similarity": round(1.0 - float(dist), 4),
         })
     return AskResponse(answer=answer, citations=citations)
+
+
+# Simple health check
+@app.get("/healthz")
+def healthz():
+    return {"ok": True}

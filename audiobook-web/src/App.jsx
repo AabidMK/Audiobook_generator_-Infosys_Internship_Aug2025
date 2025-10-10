@@ -27,8 +27,11 @@ function Uploader({ onDone }) {
     <form className="card" onSubmit={submit}>
       <h3>Upload → Gemini rewrite → MP3 → Index</h3>
       <div className="row" style={{marginBottom:8}}>
-        <input className="file" type="file" accept=".pdf,.docx,.txt,.md"
-               onChange={e=>setFile(e.target.files?.[0]||null)} />
+        <input
+            type="file"
+            accept=".pdf,.docx,.txt,.md,.png,.jpg,.jpeg,.tiff,.bmp"
+            onChange={(e) => setFile(e.target.files[0])}
+        />
         <input className="input" type="text" placeholder="Title (optional)"
                value={title} onChange={e=>setTitle(e.target.value)} />
         <button className="btn" disabled={!file || busy}>
