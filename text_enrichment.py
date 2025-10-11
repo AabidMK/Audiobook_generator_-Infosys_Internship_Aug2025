@@ -1,7 +1,10 @@
 import re
 import logging
 from tqdm import tqdm
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 def clean_text_for_tts(text: str) -> str:
     """Clean text for TTS, remove unwanted symbols."""
     text = text.replace("\\", " ").replace("•", "-").replace("·", "-")
@@ -31,11 +34,34 @@ def local_enrichment(text: str) -> str:
     return f"[Audiobook narration]\n{text}"
 
 def enrich_text(text: str) -> str:
-    """Enrich text in chunks for audiobook."""
+    """Enrich text in chunks for audiobook using Gemini AI."""
+    api_key = os.getenv("GOOGLE_API_KEY")
+    if not api_key:
+        logging.warning("No GOOGLE_API_KEY found, falling back to local enrichment")
+        return local_enrichment(text)
+    
+    try:
+        import google.generativeai as genai
+        genai.configure(api_key=api_key)
+        model = genai.GenerativeModel('gemini-flash-latest')
+    except ImportError:
+        logging.error("google-generativeai not installed, falling back to local enrichment")
+        return local_enrichment(text)
+    
     chunks = chunk_text(text)
     enriched_chunks = []
-    for c in tqdm(chunks, desc="Enriching text", unit="chunk"):
-        enriched_chunks.append(local_enrichment(c))
+    for c in tqdm(chunks, desc="Enriching text with Gemini", unit="chunk"):
+        prompt = f"""Rewrite this text to make it more suitable for audiobook narration. 
+        Improve readability, add natural pauses where appropriate, enhance engagement, 
+        and ensure it flows well when spoken aloud. Keep the original meaning intact:
+
+        {c}"""
+        try:
+            response = model.generate_content(prompt)
+            enriched_chunks.append(response.text.strip())
+        except Exception as e:
+            logging.error(f"Gemini API error: {e}, using local enrichment for this chunk")
+            enriched_chunks.append(local_enrichment(c))
     return "\n\n".join(enriched_chunks)
 
 def save_markdown(content: str, path: str):

@@ -33,7 +33,8 @@ dependencies = [
     "boto3",
     "sentence-transformers",
     "pdf2image",
-    "python-multipart", 
+    "python-multipart",
+    "google-generativeai"
 ]
 
 [build-system]

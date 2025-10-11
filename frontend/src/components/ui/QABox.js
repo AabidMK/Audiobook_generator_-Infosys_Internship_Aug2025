@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+const BACKEND_URL = "http://localhost:8000"; // Replace with your backend URL
 
 function QABox() {
   const [question, setQuestion] = useState("");
@@ -19,11 +19,11 @@ function QABox() {
         const data = await response.json();
         setAnswer(data.answer);
         setCitations(data.citations || []);
+        setQuestion(""); // Clear the input field for follow-up questions
       } else {
         setAnswer("Error fetching answer");
       }
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
       setAnswer("Error connecting to backend");
     }
   };
@@ -42,7 +42,7 @@ function QABox() {
         Ask
       </button>
       {answer && (
-        <div className="mt-3">
+        <div className="mt-3 max-h-40 overflow-y-auto">
           <p><strong>Answer:</strong> {answer}</p>
           {citations.length > 0 && (
             <ul className="mt-2 text-sm text-gray-600 list-disc pl-5">
