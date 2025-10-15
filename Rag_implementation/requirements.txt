@@ -1,0 +1,12 @@
+torch
+transformers
+sentence-transformers
+chromadb
+qdrant-client
+pdfplumber
+pdf2image
+pytesseract
+Pillow
+python-docx
+pyttsx3
+tqdm

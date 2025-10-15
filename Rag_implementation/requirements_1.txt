@@ -1,0 +1,22 @@
+# Core ML + embeddings
+sentence-transformers==2.7.0
+transformers==4.44.2
+torch==2.2.2
+
+# Vector database
+chromadb==0.5.5
+
+# Document parsing
+pdfplumber==0.11.0
+python-docx==1.1.0
+pillow==10.4.0
+pytesseract==0.3.10
+
+# Utils
+numpy==1.26.4
+scipy==1.13.1
+tqdm==4.66.5
+
+# Optional (faster model execution)
+accelerate==0.33.0
+
