@@ -81,7 +81,7 @@ This creates a virtual environment (`.venv`) and installs all required packages 
 From the project root directory:
 
 ```powershell
-uv run uvicorn server:app --reload --host 127.0.0.1 --port 8000
+uv run uvicorn server:app --reload --host 127.0.0.1 --port 3001
 ```
 
 - The backend will run at: http://127.0.0.1:3001
