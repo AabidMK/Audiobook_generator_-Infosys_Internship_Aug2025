@@ -84,8 +84,8 @@ From the project root directory:
 uv run uvicorn server:app --reload --host 127.0.0.1 --port 8000
 ```
 
-- The backend will run at: http://127.0.0.1:8000
-- API documentation (Swagger UI) available at: http://127.0.0.1:8000/docs
+- The backend will run at: http://127.0.0.1:3001
+- API documentation (Swagger UI) available at: http://127.0.0.1:3001/docs
 - The server uses `--reload` for development (auto-restart on file changes)
 
 ### 5. Install and Start the Frontend (React App)
