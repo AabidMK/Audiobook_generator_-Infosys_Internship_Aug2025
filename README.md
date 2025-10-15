@@ -99,7 +99,7 @@ npm start
 ```
 
 - The React dev server will run at: http://localhost:3000
-- The frontend will automatically connect to the backend at `http://localhost:8000`
+- The frontend will automatically connect to the backend at `http://localhost:3001`
 
 ## Usage
 
@@ -161,7 +161,7 @@ npm start
 ### Frontend Issues
 
 **Problem**: Frontend can't connect to backend
-- **Solution**: Verify the backend is running on port 8000 and check that `BACKEND_URL` in frontend components points to `http://localhost:8000`
+- **Solution**: Verify the backend is running on port 8000 and check that `BACKEND_URL` in frontend components points to `http://localhost3001`
 
 **Problem**: Q&A Assistant shows "Error processing your request"
 - **Solution**: Check backend terminal logs for detailed error messages. Ensure your Google API key is valid and has not exceeded quota limits.
@@ -198,7 +198,7 @@ If you prefer not to use `uv`:
 
 3. Run the backend:
    ```powershell
-   python -m uvicorn server:app --reload --host 127.0.0.1 --port 8000
+   python -m uvicorn server:app --reload --host 127.0.0.1 --port 3001
    ```
 
 ## Project Structure
