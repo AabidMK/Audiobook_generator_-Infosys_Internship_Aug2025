@@ -161,7 +161,7 @@ npm start
 ### Frontend Issues
 
 **Problem**: Frontend can't connect to backend
-- **Solution**: Verify the backend is running on port 8000 and check that `BACKEND_URL` in frontend components points to `http://localhost3001`
+- **Solution**: Verify the backend is running on port 3001 and check that `BACKEND_URL` in frontend components points to `http://localhost:3001`
 
 **Problem**: Q&A Assistant shows "Error processing your request"
 - **Solution**: Check backend terminal logs for detailed error messages. Ensure your Google API key is valid and has not exceeded quota limits.
