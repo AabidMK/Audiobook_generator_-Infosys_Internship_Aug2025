@@ -1,0 +1,3 @@
+This is a plain text file.
+It contains simple lines of text.
+We will use it to test text extraction for .txt files.
